@@ -2,7 +2,6 @@
 // Description: Page-specific styles for HomePage.jsx (hero, featured grid, CTA)
 
 @use "../elements/mixins" as *;
-@use "../elements/classes" as *;
 
 .home-hero {
   @include fadeInUp(0.6s);
@@ -16,7 +15,7 @@
 
   p {
     font-size: 1.2rem;
-    color: #555;
+    color: var(--color-muted);
     margin-bottom: 2rem;
   }
 
@@ -31,9 +30,9 @@
   margin-top: 2rem;
 
   .feature-card {
-    @extend .rounded;
-    @extend .shadow-sm;
-    background-color: #f9f9f9;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    background-color: var(--color-surface);
     padding: 1rem;
     text-align: center;
 
