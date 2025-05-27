@@ -1,0 +1,30 @@
+// File: src/styles/elements/mixins.scss
+// Description: Reusable animations, transitions, layout helpers (flex/grid shortcuts, media queries)
+
+@mixin fadeInUp($duration: 0.5s) {
+  animation: fadeInUp $duration ease-in-out;
+}
+
+@mixin centerFlex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin responsiveGrid($minWidth: 200px) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax($minWidth, 1fr));
+  gap: 1rem;
+}
+
+// Add your keyframes here
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

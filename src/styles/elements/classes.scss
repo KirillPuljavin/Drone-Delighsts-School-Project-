@@ -1,0 +1,30 @@
+// File: src/styles/elements/classes.scss
+// Description: App-wide utility or helper classes (not tag-level, not page-specific)
+
+.btn {
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+  background-color: #1e40af;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #1e3a8a;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.rounded {
+  border-radius: 0.5rem;
+}
+
+.shadow-sm {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
