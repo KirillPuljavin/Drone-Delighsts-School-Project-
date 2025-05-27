@@ -10,6 +10,12 @@
   --color-text: #222;
   --color-muted: #555;
   --color-white: #ffffff;
+
+  --font-base: system-ui, sans-serif;
+  --radius-sm: 0.5rem;
+  --radius-full: 9999px;
+  --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
 *,
@@ -22,11 +28,22 @@
 
 html,
 body {
-  font-family: system-ui, sans-serif;
+  font-family: var(--font-base);
   background-color: var(--color-bg);
   color: var(--color-text);
   line-height: 1.5;
+  font-size: 16px;
   min-height: 100%;
+  scroll-behavior: smooth;
+}
+
+img,
+svg,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+  height: auto;
 }
 
 a {
@@ -34,15 +51,72 @@ a {
   color: inherit;
 }
 
-img {
+ul,
+ol {
+  list-style: none;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 0.5rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: var(--color-text);
+  background-color: var(--color-white);
+  border: 1px solid #ccc;
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 0.75rem;
+  width: 100%;
   max-width: 100%;
-  height: auto;
-  display: block;
 }
 
 button {
-  font: inherit;
   cursor: pointer;
   border: none;
-  background: none;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: var(--color-secondary);
+  }
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.2);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
 }

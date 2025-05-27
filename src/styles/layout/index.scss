@@ -1,0 +1,6 @@
+// File: src/styles/layout/index.scss
+
+// Simply to import element styles for layout components
+@forward "../elements/mixins";
+@forward "../elements/generic";
+@forward "../elements/classes";
