@@ -1,6 +1,17 @@
 // File: src/styles/elements/generic.scss
 // Description: Global element styles (resets and basic HTML tag styling)
 
+:root {
+  --color-bg: #fff8f2;
+  --color-surface: #fff3e0;
+  --color-primary: #ff6b6b;
+  --color-accent: #f8c26a;
+  --color-secondary: #ffa36c;
+  --color-text: #222;
+  --color-muted: #555;
+  --color-white: #ffffff;
+}
+
 *,
 *::before,
 *::after {
@@ -12,12 +23,10 @@
 html,
 body {
   font-family: system-ui, sans-serif;
-  background-color: #fff;
-  color: #111;
+  background-color: var(--color-bg);
+  color: var(--color-text);
   line-height: 1.5;
   min-height: 100%;
-  margin: 0;
-  padding: 0;
 }
 
 a {
