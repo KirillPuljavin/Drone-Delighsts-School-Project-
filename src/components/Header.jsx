@@ -47,6 +47,8 @@ const Header = () => {
           background-color: var(--color-surface);
           box-shadow: var(--shadow-sm);
           padding: 0.75rem 1.5rem;
+          position: relative;
+          z-index: 10;
         }
 
         .header-container {
@@ -55,6 +57,7 @@ const Header = () => {
           align-items: center;
           max-width: 1200px;
           margin: 0 auto;
+          position: relative;
         }
 
         .logo-wrap {
@@ -77,10 +80,6 @@ const Header = () => {
         }
 
         .nav-toggle {
-          font-size: 1.5rem;
-          background: none;
-          border: none;
-          color: var(--color-primary);
           display: none;
         }
 
@@ -101,24 +100,48 @@ const Header = () => {
 
         @media (max-width: 768px) {
           .nav-toggle {
-            display: block;
+            display: flex;
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            color: var(--color-primary);
+            align-items: center;
+            justify-content: center;
           }
 
           .nav-links {
             position: absolute;
-            top: 100%;
+            top: 135%;
             left: 0;
-            right: 0;
+            width: 100%;
             background-color: var(--color-surface);
             flex-direction: column;
-            align-items: center;
-            padding: 1rem 0;
-            gap: 1rem;
+            align-items: stretch;
+            gap: 0;
             display: none;
+            z-index: 5;
+            box-shadow: var(--shadow-sm);
           }
 
           .nav-links.open {
             display: flex;
+          }
+
+          .nav-links a {
+            display: block;
+            padding: 1rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            text-align: center;
+          }
+
+          .nav-links a:last-child {
+            border-bottom: none;
           }
         }
       `}</style>
