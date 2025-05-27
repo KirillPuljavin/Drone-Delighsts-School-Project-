@@ -1,30 +1,252 @@
 // File: src/styles/elements/classes.scss
 // Description: App-wide utility or helper classes (not tag-level, not page-specific)
 
+/* === Buttons === */
 .btn {
-  padding: 0.5rem 1rem;
+  display: inline-block;
+  padding: 0.5rem 1.2rem;
   font-weight: 600;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
-}
-
-.btn-primary {
-  background-color: #1e40af;
-  color: #fff;
-}
-
-.btn-primary:hover {
-  background-color: #1e3a8a;
-}
-
-.text-center {
+  font-size: 1rem;
   text-align: center;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+
+  &-primary {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+
+    &:hover {
+      background-color: var(--color-secondary);
+    }
+  }
+
+  &-secondary {
+    background-color: var(--color-secondary);
+    color: var(--color-white);
+
+    &:hover {
+      background-color: var(--color-accent);
+    }
+  }
+
+  &-accent {
+    background-color: var(--color-accent);
+    color: var(--color-text);
+
+    &:hover {
+      background-color: var(--color-secondary);
+    }
+  }
+
+  &-outline {
+    background-color: transparent;
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+
+    &:hover {
+      background-color: var(--color-primary);
+      color: var(--color-white);
+    }
+  }
 }
 
+/* === Text Utilities === */
+.text {
+  &-center {
+    text-align: center;
+  }
+  &-left {
+    text-align: left;
+  }
+  &-right {
+    text-align: right;
+  }
+
+  &-muted {
+    color: var(--color-muted);
+  }
+  &-primary {
+    color: var(--color-primary);
+  }
+  &-accent {
+    color: var(--color-accent);
+  }
+  &-bold {
+    font-weight: 700;
+  }
+  &-sm {
+    font-size: 0.875rem;
+  }
+  &-lg {
+    font-size: 1.25rem;
+  }
+}
+
+/* === Flex & Grid === */
+.flex {
+  display: flex;
+
+  &-row {
+    flex-direction: row;
+  }
+  &-col {
+    flex-direction: column;
+  }
+  &-center {
+    justify-content: center;
+    align-items: center;
+  }
+  &-between {
+    justify-content: space-between;
+    align-items: center;
+  }
+  &-wrap {
+    flex-wrap: wrap;
+  }
+}
+
+.grid {
+  display: grid;
+
+  &-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  &-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  &-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  &-auto {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  &-gap-sm {
+    gap: 0.5rem;
+  }
+  &-gap-md {
+    gap: 1rem;
+  }
+  &-gap-lg {
+    gap: 2rem;
+  }
+}
+
+/* === Spacing === */
+.m {
+  &-0 {
+    margin: 0;
+  }
+  &-sm {
+    margin: 0.5rem;
+  }
+  &-md {
+    margin: 1rem;
+  }
+  &-lg {
+    margin: 2rem;
+  }
+}
+
+.mt {
+  &-sm {
+    margin-top: 0.5rem;
+  }
+  &-md {
+    margin-top: 1rem;
+  }
+  &-lg {
+    margin-top: 2rem;
+  }
+}
+
+.mb {
+  &-sm {
+    margin-bottom: 0.5rem;
+  }
+  &-md {
+    margin-bottom: 1rem;
+  }
+  &-lg {
+    margin-bottom: 2rem;
+  }
+}
+
+.p {
+  &-sm {
+    padding: 0.5rem;
+  }
+  &-md {
+    padding: 1rem;
+  }
+  &-lg {
+    padding: 2rem;
+  }
+}
+
+/* === Display === */
+.block {
+  display: block;
+}
+.inline {
+  display: inline;
+}
+.inline-block {
+  display: inline-block;
+}
+.hidden {
+  display: none;
+}
+
+/* === Visual === */
 .rounded {
   border-radius: 0.5rem;
 }
-
+.rounded-full {
+  border-radius: 9999px;
+}
 .shadow-sm {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+.shadow-lg {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.bg {
+  &-primary {
+    background-color: var(--color-primary);
+  }
+  &-accent {
+    background-color: var(--color-accent);
+  }
+  &-surface {
+    background-color: var(--color-surface);
+  }
+}
+
+/* === Badges === */
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+
+  &-dietary {
+    background-color: var(--color-accent);
+    color: var(--color-text);
+  }
+
+  &-promo {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+  }
+
+  &-new {
+    background-color: var(--color-secondary);
+    color: var(--color-white);
+  }
 }
