@@ -3,7 +3,7 @@
 const MenuPage = () => (
   <section>
     <h1>Menu</h1>
-    <p>Here’s what you can order.</p>
+    <p>Filter buttons, search bar, product grid will go here.</p>
   </section>
 );
 
