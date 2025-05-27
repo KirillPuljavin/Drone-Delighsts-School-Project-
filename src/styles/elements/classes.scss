@@ -1,13 +1,6 @@
 // File: src/styles/elements/classes.scss
 // Description: App-wide utility or helper classes (not tag-level, not page-specific)
 
-.logo-image {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%; // emphasize it's circular
-  object-fit: cover;
-}
-
 /* === Typography === */
 .text-center {
   text-align: center;
