@@ -22,26 +22,11 @@
   color: var(--color-accent);
 }
 
-.text-bold {
-  font-weight: 700;
-}
-.text-sm {
-  font-size: 0.875rem;
-}
-.text-lg {
-  font-size: 1.25rem;
-}
-.text-xl {
-  font-size: 1.5rem;
-}
-.text-2xl {
-  font-size: 2rem;
-}
-
 /* === Buttons === */
 .btn {
   display: inline-block;
   padding: 0.5rem 1.2rem;
+  margin: 1rem 0 1rem 0;
   font-weight: 600;
   font-size: 1rem;
   text-align: center;
@@ -85,7 +70,7 @@
 }
 
 /* === Spacing === */
-@for $i from 0 through 5 {
+@for $i from 0 through 10 {
   .m-#{$i} {
     margin: #{$i * 0.25}rem !important;
   }
