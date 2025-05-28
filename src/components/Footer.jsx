@@ -3,23 +3,25 @@
 import { useEffect, useState } from "react";
 
 const Footer = () => {
-  const [darkMode, setDarkMode] = useState(() =>
-    document.body.classList.contains("dark-theme")
+  const [darkMode, setDarkMode] = useState(
+    () => document.documentElement.getAttribute("data-theme") === "dark"
   );
 
   const toggleTheme = () => {
     const nextMode = !darkMode;
-    document.body.classList.toggle("dark-theme", nextMode);
+    const theme = nextMode ? "dark" : "light";
+
+    document.documentElement.setAttribute("data-theme", theme);
     setDarkMode(nextMode);
-    localStorage.setItem("theme", nextMode ? "dark" : "light");
+    localStorage.setItem("theme", theme);
   };
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "dark") {
-      document.body.classList.add("dark-theme");
-      setDarkMode(true);
-    }
+    const defaultTheme = savedTheme === "dark" ? "dark" : "light";
+
+    document.documentElement.setAttribute("data-theme", defaultTheme);
+    setDarkMode(defaultTheme === "dark");
   }, []);
 
   return (
