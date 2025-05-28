@@ -1,16 +1,26 @@
 // File: src/styles/elements/mixins.scss
 // Description: Reusable animations (keyframes), transitions, layout helpers (flex/grid shortcuts, media queries)
 
-@mixin centerFlex {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-@mixin responsiveGrid($minWidth: 200px) {
+@mixin responsiveGrid($minWidth: 250px, $gap: 1rem) {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax($minWidth, 1fr));
-  gap: 1.5rem;
+  gap: $gap;
+}
+
+@mixin collapseToggle($maxHeight: 500px, $duration: 0.4s) {
+  overflow: hidden;
+  transition: max-height $duration ease, opacity $duration ease;
+
+  &.is-visible {
+    max-height: $maxHeight;
+    opacity: 1;
+  }
+
+  &.is-hidden {
+    max-height: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
 }
 
 @mixin container {
