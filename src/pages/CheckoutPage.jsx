@@ -21,6 +21,8 @@ const CheckoutPage = () => {
     deliveryNote: "",
     coupon: "",
   });
+  const [errors, setErrors] = useState({});
+  const [attemptedSubmit, setAttemptedSubmit] = useState(false);
 
   useEffect(() => {
     let currentUser = getUser();
@@ -41,9 +43,45 @@ const CheckoutPage = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    if (attemptedSubmit) validate(); // live re-validate on change after submit attempt
+  };
+
+  const validate = () => {
+    const newErrors = {};
+
+    if (!formData.fullName.trim().includes(" ")) {
+      newErrors.fullName = "Please enter your full name.";
+    }
+
+    if (!formData.streetAddress.match(/\d/)) {
+      newErrors.streetAddress = "Street must include a number.";
+    }
+
+    if (!formData.city.trim()) {
+      newErrors.city = "City is required.";
+    }
+
+    if (!formData.postalCode.match(/^\d{3}\s?\d{2}$/)) {
+      newErrors.postalCode = "Postal code must be 5 digits, optionally spaced.";
+    }
+
+    const isIntl = /^\+\d{6,15}$/.test(formData.phone.replace(/\s|-/g, ""));
+    const isLocal = /^07\d{1}[-\s]?\d{3}[-\s]?\d{2}[-\s]?\d{2}$/.test(
+      formData.phone
+    );
+
+    if (!isIntl && !isLocal) {
+      newErrors.phone =
+        "Phone must be in format +46700111222 or 070-123 45 67.";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handlePurchase = () => {
+    setAttemptedSubmit(true);
+    if (!validate()) return;
     console.log("Purchasing:", { user, cartItems, formData });
     clearCart();
     navigate("/confirmation");
@@ -65,71 +103,105 @@ const CheckoutPage = () => {
           </p>
 
           <h2>Delivery Address</h2>
-          <input
-            name="fullName"
-            placeholder="Full Name"
-            value={formData.fullName}
-            onChange={handleChange}
-          />
-          <input
-            name="streetAddress"
-            placeholder="Street Address"
-            value={formData.streetAddress}
-            onChange={handleChange}
-          />
-          <input
-            name="apartment"
-            placeholder="Apartment, Floor, etc. (optional)"
-            value={formData.apartment}
-            onChange={handleChange}
-          />
-          <div className="row">
+
+          <div className={`form-group ${errors.fullName ? "has-error" : ""}`}>
+            <label>Full Name</label>
             <input
-              name="city"
-              placeholder="City"
-              value={formData.city}
+              name="fullName"
+              value={formData.fullName}
               onChange={handleChange}
             />
+            <span className="form-error">{errors.fullName}</span>
+          </div>
+
+          <div
+            className={`form-group ${errors.streetAddress ? "has-error" : ""}`}
+          >
+            <label>Street Address</label>
             <input
-              name="postalCode"
-              placeholder="Postal Code"
-              value={formData.postalCode}
+              name="streetAddress"
+              value={formData.streetAddress}
+              onChange={handleChange}
+            />
+            <span className="form-error">{errors.streetAddress}</span>
+          </div>
+
+          <div className="form-group">
+            <label>Apartment / Floor (optional)</label>
+            <input
+              name="apartment"
+              value={formData.apartment}
               onChange={handleChange}
             />
           </div>
-          <input
-            name="phone"
-            placeholder="Phone Number"
-            value={formData.phone}
-            onChange={handleChange}
-          />
+
+          <div className="row">
+            <div className={`form-group ${errors.city ? "has-error" : ""}`}>
+              <label>City</label>
+              <input
+                name="city"
+                value={formData.city}
+                onChange={handleChange}
+              />
+              <span className="form-error">{errors.city}</span>
+            </div>
+
+            <div
+              className={`form-group ${errors.postalCode ? "has-error" : ""}`}
+            >
+              <label>Postal Code</label>
+              <input
+                name="postalCode"
+                value={formData.postalCode}
+                onChange={handleChange}
+              />
+              <span className="form-error">{errors.postalCode}</span>
+            </div>
+          </div>
+
+          <div className={`form-group ${errors.phone ? "has-error" : ""}`}>
+            <label>Phone Number</label>
+            <input
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+            />
+            <span className="form-error">{errors.phone}</span>
+          </div>
 
           <h2>Delivery Method</h2>
-          <select
-            name="deliveryMethod"
-            value={formData.deliveryMethod}
-            onChange={handleChange}
-          >
-            <option>Standard (30–45 min)</option>
-            <option>Express (+25 SEK, 15–20 min)</option>
-            <option>Scheduled (Choose Time)</option>
-          </select>
+          <div className="form-group">
+            <label>Select a method</label>
+            <select
+              name="deliveryMethod"
+              value={formData.deliveryMethod}
+              onChange={handleChange}
+            >
+              <option>Standard (30–45 min)</option>
+              <option>Express (+25 SEK, 15–20 min)</option>
+              <option>Scheduled (Choose Time)</option>
+            </select>
+          </div>
 
           <h2>Delivery Instructions</h2>
-          <textarea
-            name="deliveryNote"
-            placeholder="Leave at door, call on arrival, etc."
-            value={formData.deliveryNote}
-            onChange={handleChange}
-          />
+          <div className="form-group">
+            <label>Notes (optional)</label>
+            <textarea
+              name="deliveryNote"
+              value={formData.deliveryNote}
+              onChange={handleChange}
+            />
+          </div>
 
           <h2>Coupon Code</h2>
-          <input
-            name="coupon"
-            placeholder="Enter code"
-            value={formData.coupon}
-            onChange={handleChange}
-          />
+          <div className="form-group">
+            <label>Discount Code (optional)</label>
+            <input
+              name="coupon"
+              value={formData.coupon}
+              onChange={handleChange}
+            />
+          </div>
         </div>
 
         {/* Right: Summary */}

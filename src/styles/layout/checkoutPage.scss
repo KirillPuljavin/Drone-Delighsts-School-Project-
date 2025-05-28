@@ -24,15 +24,8 @@
     @extend .shadow-sm;
 
     h2 {
-      @extend .mb-4;
       @extend .mt-6;
-    }
-
-    input,
-    select,
-    textarea {
-      @extend .mb-4;
-      width: 100%;
+      @extend .mb-2;
     }
 
     .row {
@@ -80,10 +73,6 @@
       display: flex;
       justify-content: space-between;
       font-weight: bold;
-    }
-
-    .btn {
-      @extend .w-full;
     }
   }
 }
