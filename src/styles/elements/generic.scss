@@ -17,6 +17,20 @@
   --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
+.dark-theme {
+  --color-bg: #1b1b1f;
+  --color-surface: #2a2a2e;
+  --color-primary: #ff6b6b;
+  --color-accent: #f5b84b;
+  --color-secondary: #ff8c4c;
+  --color-text: #f2f2f2;
+  --color-muted: #aaaaaa;
+  --color-white: #1b1b1f;
+
+  hr {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+}
 
 .logo-image {
   width: 80px;
@@ -101,13 +115,13 @@ h4 {
 
 h5 {
   font-size: 1.125rem;
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.45;
 }
 
 h6 {
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.5;
 }
 
@@ -115,6 +129,13 @@ p {
   font-size: 1rem;
   line-height: 1.6;
   margin-bottom: 1rem;
+}
+hr {
+  border: none;
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.2);
+  margin: 1rem 0;
+  width: 100%;
 }
 
 button,
