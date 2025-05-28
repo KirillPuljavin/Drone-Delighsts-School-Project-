@@ -4,3 +4,13 @@
 @forward "../elements/mixins";
 @forward "../elements/generic";
 @forward "../elements/classes";
+
+.react-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex-grow: 1;
+}
