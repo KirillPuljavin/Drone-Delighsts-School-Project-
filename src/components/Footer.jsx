@@ -44,7 +44,6 @@ const Footer = () => {
         .site-footer {
           text-align: center;
           padding: 1rem 1rem 3rem;
-          margin-top: 4rem;
           background-color: var(--color-surface);
           color: var(--color-text);
         }
