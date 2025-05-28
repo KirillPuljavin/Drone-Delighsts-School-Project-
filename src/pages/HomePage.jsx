@@ -9,7 +9,9 @@ const HomePage = () => (
     <section className="home-hero">
       <div className="container">
         <h1>Drone Delights</h1>
-        <p className="subtitle">Fast food, delivered faster.</p>
+        <p className="subtitle">
+          <strong>Fast Food, Delivered Faster</strong>
+        </p>
         <Link className="btn btn-primary" to="/menu">
           View Menu
         </Link>
@@ -80,15 +82,21 @@ const HomePage = () => (
         <h2>Our Mission in Numbers</h2>
         <div className="stats-grid">
           <div className="stat">
-            <strong>120+</strong>
+            <h3>
+              <strong>120+</strong>
+            </h3>
             <span>Menu Items</span>
           </div>
           <div className="stat">
-            <strong>58,000+</strong>
+            <h3>
+              <strong>58,000+</strong>
+            </h3>
             <span>Deliveries Completed</span>
           </div>
           <div className="stat">
-            <strong>97%</strong>
+            <h3>
+              <strong>97%</strong>
+            </h3>
             <span>Customer Satisfaction</span>
           </div>
         </div>
