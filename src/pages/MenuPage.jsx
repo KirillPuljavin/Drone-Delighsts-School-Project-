@@ -1,6 +1,6 @@
 // File: src/pages/MenuPage.jsx
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./../styles/layout/menuPage.scss";
 import { addToCart } from "../utils/cartService";
 
@@ -37,6 +37,24 @@ const MenuPage = () => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [showFilters, setShowFilters] = useState(false);
+  const [favorites, setFavorites] = useState(() => {
+    try {
+      const stored = localStorage.getItem("favorites");
+      return stored ? JSON.parse(stored) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  }, [favorites]);
+
+  const toggleFavorite = (id) => {
+    setFavorites((prev) =>
+      prev.includes(id) ? prev.filter((fid) => fid !== id) : [...prev, id]
+    );
+  };
 
   const sortedItems = [...demoItems]
     .filter((item) =>
@@ -103,6 +121,18 @@ const MenuPage = () => {
               key={item.id}
               onClick={() => handleItemClick(item)}
             >
+              <div
+                className={`favorite-icon ${
+                  favorites.includes(item.id) ? "liked" : ""
+                }`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggleFavorite(item.id);
+                }}
+                title="Toggle favorite"
+              >
+                ♥
+              </div>
               <img src={item.image} alt={item.name} />
               <h3>{item.name}</h3>
               <p>{item.price} SEK</p>
