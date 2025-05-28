@@ -46,7 +46,7 @@ const Header = () => {
         .site-header {
           background-color: var(--color-surface);
           box-shadow: var(--shadow-sm);
-          padding: 0.75rem 1.5rem;
+          padding: 1rem 1.5rem;
           position: relative;
           z-index: 10;
         }
@@ -57,6 +57,7 @@ const Header = () => {
           align-items: center;
           max-width: 1200px;
           margin: 0 auto;
+          padding: 0 1rem;
           position: relative;
         }
 
@@ -92,6 +93,7 @@ const Header = () => {
           color: var(--color-text);
           font-weight: 500;
           transition: color 0.2s ease;
+          padding: 0.5rem 0.75rem;
         }
 
         .nav-links a:hover {
@@ -102,7 +104,7 @@ const Header = () => {
           .nav-toggle {
             display: flex;
             position: absolute;
-            right: 0;
+            right: 1rem;
             top: 50%;
             transform: translateY(-50%);
             width: 50px;

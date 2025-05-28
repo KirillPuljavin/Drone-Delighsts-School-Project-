@@ -1,0 +1,102 @@
+// File: src/styles/layout/menuPage.scss
+@use "./index.scss" as *;
+
+.menu-page {
+  section {
+    @extend .p-2;
+  }
+
+  .container {
+    @include container;
+  }
+}
+
+/* === Filter Block === */
+.menu-filters {
+  background-color: var(--color-surface);
+
+  .btn {
+    @extend .m-2;
+  }
+
+  .btn-outline {
+    padding: 0.4rem 1rem;
+  }
+}
+
+/* === Search + Sort === */
+.menu-search-sort {
+  @extend .mt-2;
+
+  .search-sort-row {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+
+    .menu-search {
+      flex: 1;
+      padding: 0.6rem 0.8rem;
+      border: 1px solid #ccc;
+      border-radius: var(--radius-sm);
+    }
+
+    .sort-toggle {
+      width: 42px;
+      height: 42px;
+      background: var(--color-white);
+      color: var(--color-primary);
+      border: 1px solid var(--color-primary);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: transform 0.2s ease;
+
+      &.asc {
+        transform: rotate(180deg);
+      }
+
+      &.desc {
+        transform: rotate(0deg);
+      }
+
+      &:hover {
+        background-color: var(--color-primary);
+        color: var(--color-white);
+      }
+    }
+  }
+}
+
+/* === Menu Grid === */
+.menu-grid {
+  @extend .mt-4;
+
+  .menu-card {
+    background-color: var(--color-surface);
+    @extend .p-4;
+    text-align: center;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease;
+
+    img {
+      height: 120px;
+      object-fit: cover;
+      border-radius: var(--radius-sm);
+      @extend .mb-3;
+    }
+
+    h3 {
+      @extend .mb-1;
+    }
+
+    p {
+      color: var(--color-muted);
+      font-size: 0.95rem;
+    }
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+  }
+}
