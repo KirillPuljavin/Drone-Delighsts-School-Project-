@@ -1,0 +1,52 @@
+// File: src/styles/layout/loginPage.scss
+@use "./index.scss" as *;
+
+.login-page {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  background-color: var(--color-surface);
+
+  .login-section {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    padding: 2rem 1rem;
+    @extend .flex-center;
+
+    .container {
+      @include container;
+      max-width: 400px !important;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .login-title {
+      font-size: 2rem;
+      font-weight: 700;
+      @extend .mb-5;
+      text-align: center;
+    }
+
+    .login-box {
+      background-color: var(--color-white);
+      @extend .rounded;
+      @extend .shadow-lg;
+      @extend .p-8;
+
+      form {
+        display: flex;
+        flex-direction: column;
+
+        .btn {
+          @extend .w-full;
+        }
+      }
+
+      .form-error {
+        text-align: center;
+        font-size: 0.95rem;
+      }
+    }
+  }
+}
