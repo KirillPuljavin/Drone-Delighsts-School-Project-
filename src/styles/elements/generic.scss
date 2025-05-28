@@ -8,7 +8,7 @@
   --color-accent: #f8c26a;
   --color-secondary: #ffa36c;
   --color-text: #222222;
-  --color-muted: #444444;
+  --color-muted: #3b3b3b;
   --color-white: #ffffff;
 
   --color-error: #e63946;
@@ -159,20 +159,6 @@ hr {
   width: 100%;
 }
 
-button,
-input,
-select,
-textarea {
-  font: inherit;
-  color: var(--color-text);
-  background-color: var(--color-white);
-  border: 1px solid #ccc;
-  border-radius: var(--radius-sm);
-  padding: 0.5rem 0.75rem;
-  width: 100%;
-  max-width: 100%;
-}
-
 button {
   cursor: pointer;
   border: none;
@@ -182,6 +168,25 @@ button {
 
   &:hover {
     background-color: var(--color-secondary);
+  }
+}
+
+button,
+input,
+select,
+textarea {
+  cursor: pointer;
+  font: inherit;
+  color: var(--color-text);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-muted);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 0.75rem;
+  width: 100%;
+  max-width: 100%;
+
+  &:hover {
+    background-color: var(--color-hover);
   }
 }
 

@@ -138,7 +138,7 @@ const CheckoutPage = () => {
           <ul>
             {cartItems.map((item) => (
               <li key={item.id}>
-                {item.name} x {item.quantity} – {item.price * item.quantity} SEK
+                {item.name} x {item.quantity} - {item.price * item.quantity} SEK
               </li>
             ))}
           </ul>
