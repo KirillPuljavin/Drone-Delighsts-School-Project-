@@ -248,7 +248,8 @@
 
 /* === Field Feedback === */
 .form-group {
-  @extend .mb-4;
+  @extend .mt-2;
+  @extend .mb-2;
   display: flex;
   flex-direction: column;
   position: relative;
