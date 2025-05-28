@@ -1,13 +1,28 @@
 // File: src/pages/CartPage.jsx
 
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { getCart, updateQuantity, removeFromCart } from "../utils/cartService";
 import "./../styles/layout/cartPage.scss";
 
 const CartPage = () => {
-  const cartItems = [
-    { id: 1, name: "Margherita", quantity: 2, price: 89 },
-    { id: 2, name: "Cola", quantity: 1, price: 25 },
-  ];
+  const [cartItems, setCartItems] = useState([]);
+
+  useEffect(() => {
+    setCartItems(getCart());
+  }, []);
+
+  const handleQuantityChange = (id, delta) => {
+    const current = cartItems.find((item) => item.id === id);
+    const newQty = Math.max(1, current.quantity + delta);
+    updateQuantity(id, newQty);
+    setCartItems(getCart());
+  };
+
+  const handleRemove = (id) => {
+    removeFromCart(id);
+    setCartItems(getCart());
+  };
 
   const total = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
@@ -27,13 +42,37 @@ const CartPage = () => {
               <ul className="cart-list">
                 {cartItems.map((item) => (
                   <li key={item.id} className="cart-item">
-                    <div className="item-info">
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="cart-item-image"
+                    />
+                    <div className="cart-item-info">
                       <span className="item-name">{item.name}</span>
-                      <span className="item-qty">Qty: {item.quantity}</span>
+                      <div className="qty-controls">
+                        <button
+                          onClick={() => handleQuantityChange(item.id, -1)}
+                        >
+                          −
+                        </button>
+                        <span>{item.quantity}</span>
+                        <button
+                          onClick={() => handleQuantityChange(item.id, 1)}
+                        >
+                          +
+                        </button>
+                      </div>
                     </div>
-                    <div className="item-total">
+                    <div className="cart-item-price">
                       {item.price * item.quantity} kr
                     </div>
+                    <button
+                      onClick={() => handleRemove(item.id)}
+                      className="remove-item"
+                      aria-label="Remove item"
+                    >
+                      ✕
+                    </button>
                   </li>
                 ))}
               </ul>
