@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import "./../styles/layout/menuPage.scss";
+import { addToCart } from "../utils/cartService";
 
 const demoItems = [
   {
@@ -127,7 +128,13 @@ const MenuPage = () => {
               <button onClick={() => setQuantity(quantity + 1)}>+</button>
             </div>
 
-            <button className="btn btn-primary w-full mt-3">
+            <button
+              className="btn btn-primary w-full mt-3"
+              onClick={() => {
+                addToCart(selectedItem, quantity);
+                handleCloseModal();
+              }}
+            >
               Add {quantity} to Cart
             </button>
           </div>
