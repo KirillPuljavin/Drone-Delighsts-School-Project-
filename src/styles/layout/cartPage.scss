@@ -20,6 +20,10 @@
       max-width: 800px !important;
       margin: 0 auto;
       width: 100%;
+
+      p {
+        @extend .flex-center;
+      }
     }
 
     .cart-title {
@@ -73,7 +77,7 @@
             height: 32px;
             padding: 0;
             @extend .flex-center;
-            background-color: var(--color-accent);
+            background-color: var(--color-secondary);
             color: var(--color-text);
             font-size: 1.2rem;
             border: none;
@@ -82,7 +86,7 @@
             transition: background-color 0.2s ease;
 
             &:hover {
-              background-color: var(--color-secondary);
+              background-color: var(--color-accent);
             }
           }
 

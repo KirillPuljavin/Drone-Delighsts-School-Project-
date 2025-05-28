@@ -33,7 +33,7 @@ const CartPage = () => {
     <main className="cart-page">
       <section className="cart-section">
         <div className="container">
-          <h1 className="cart-title">Your Cart</h1>
+          <h1 className="cart-title">In Cart</h1>
 
           {cartItems.length === 0 ? (
             <p className="text-muted">Your cart is empty.</p>
