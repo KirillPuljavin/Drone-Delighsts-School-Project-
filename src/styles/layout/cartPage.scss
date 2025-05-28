@@ -1,0 +1,73 @@
+// File: src/styles/layout/cartPage.scss
+@use "./index.scss" as *;
+
+.cart-page {
+  .cart-section {
+    background-color: var(--color-surface);
+    @extend .pt-5;
+    @extend .pb-5;
+    @extend .mb-10;
+    text-align: center;
+
+    .container {
+      @include container;
+    }
+
+    .cart-title {
+      font-size: 2rem;
+      font-weight: 700;
+      @extend .mb-5;
+    }
+
+    .cart-list {
+      text-align: left;
+      @extend .mb-5;
+
+      .cart-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+        border-radius: var(--radius-sm);
+        background-color: var(--color-white);
+        box-shadow: var(--shadow-sm);
+        @extend .mb-3;
+
+        .item-info {
+          display: flex;
+          flex-direction: column;
+
+          .item-name {
+            font-weight: 600;
+            font-size: 1rem;
+          }
+
+          .item-qty {
+            font-size: 0.9rem;
+            color: var(--color-muted);
+          }
+        }
+
+        .item-total {
+          font-weight: 600;
+          font-size: 1.1rem;
+        }
+      }
+    }
+
+    .cart-summary {
+      border-top: 1px solid #e0e0e0;
+      padding-top: 1.5rem;
+      text-align: right;
+
+      .total-line {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 1.2rem;
+        font-weight: 600;
+        @extend .mb-3;
+      }
+    }
+  }
+}

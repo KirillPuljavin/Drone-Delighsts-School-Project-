@@ -1,6 +1,7 @@
 // File: src/pages/CartPage.jsx
 
 import { Link } from "react-router-dom";
+import "./../styles/layout/cartPage.scss";
 
 const CartPage = () => {
   const cartItems = [
@@ -14,32 +15,45 @@ const CartPage = () => {
   );
 
   return (
-    <section>
-      <h1>Your Cart</h1>
+    <main className="cart-page">
+      <section className="cart-section">
+        <div className="container">
+          <h1 className="cart-title">Your Cart</h1>
 
-      {cartItems.length === 0 ? (
-        <p>Your cart is empty.</p>
-      ) : (
-        <>
-          <ul>
-            {cartItems.map((item) => (
-              <li key={item.id}>
-                <span>{item.name}</span> –<span>Qty: {item.quantity}</span> –
-                <span>{item.price * item.quantity} kr</span>
-              </li>
-            ))}
-          </ul>
+          {cartItems.length === 0 ? (
+            <p className="text-muted">Your cart is empty.</p>
+          ) : (
+            <>
+              <ul className="cart-list">
+                {cartItems.map((item) => (
+                  <li key={item.id} className="cart-item">
+                    <div className="item-info">
+                      <span className="item-name">{item.name}</span>
+                      <span className="item-qty">Qty: {item.quantity}</span>
+                    </div>
+                    <div className="item-total">
+                      {item.price * item.quantity} kr
+                    </div>
+                  </li>
+                ))}
+              </ul>
 
-          <div>
-            <strong>Total:</strong> {total} kr
-          </div>
-
-          <Link to="/checkout">
-            <button>Proceed to Checkout</button>
-          </Link>
-        </>
-      )}
-    </section>
+              <div className="cart-summary">
+                <div className="total-line">
+                  <span>Total</span>
+                  <strong>{total} kr</strong>
+                </div>
+                <Link to="/checkout">
+                  <button className="btn btn-primary w-full mt-3">
+                    Proceed to Checkout
+                  </button>
+                </Link>
+              </div>
+            </>
+          )}
+        </div>
+      </section>
+    </main>
   );
 };
 
