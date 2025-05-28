@@ -34,6 +34,10 @@
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
 
+  &:hover {
+    box-shadow: var(--shadow-lg);
+  }
+
   &-primary {
     background-color: var(--color-primary);
     color: var(--color-white);
@@ -70,7 +74,7 @@
 }
 
 /* === Spacing === */
-@for $i from 0 through 10 {
+@for $i from 0 through 20 {
   .m-#{$i} {
     margin: #{$i * 0.25}rem !important;
   }
