@@ -7,35 +7,75 @@ import "../../styles/layout/loginPage.scss";
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const [mode, setMode] = useState("login");
 
   const [formData, setFormData] = useState({
     phone: "",
     password: "",
+    confirmPassword: "",
+    fullName: "",
+    streetAddress: "",
+    apartment: "",
+    city: "",
+    postalCode: "",
   });
+
   const [errors, setErrors] = useState({});
-  const [loginFailed, setLoginFailed] = useState(false);
+  const [feedback, setFeedback] = useState("");
   const [submitting, setSubmitting] = useState(false);
+
+  const toggleMode = () => {
+    setMode(mode === "login" ? "register" : "login");
+    setErrors({});
+    setFeedback("");
+    setFormData({
+      phone: "",
+      password: "",
+      confirmPassword: "",
+      fullName: "",
+      streetAddress: "",
+      apartment: "",
+      city: "",
+      postalCode: "",
+    });
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     setErrors({});
-    setLoginFailed(false);
+    setFeedback("");
   };
 
   const validate = () => {
     const errs = {};
-
+    const phone = formData.phone.trim();
     const phoneValid =
-      /^\+\d{6,15}$/.test(formData.phone.replace(/\s|-/g, "")) ||
-      /^07\d{1}[-\s]?\d{3}[-\s]?\d{2}[-\s]?\d{2}$/.test(formData.phone);
+      phone === "user" ||
+      /^\+\d{6,15}$/.test(phone.replace(/\s|-/g, "")) ||
+      /^07\d{1}[-\s]?\d{3}[-\s]?\d{2}[-\s]?\d{2}$/.test(phone);
 
     if (!phoneValid) {
-      errs.phone = "Enter valid phone: +4670XXXXXXX or 070-XXX XX XX";
+      errs.phone = "Use +4670XXXXXXX or 070-XXX XX XX format.";
+    }
+
+    if (mode === "register") {
+      if (!formData.fullName.trim().includes(" ")) {
+        errs.fullName = "Please enter your full name.";
+      }
+      if (formData.password !== formData.confirmPassword) {
+        errs.confirmPassword = "Passwords do not match.";
+      }
     }
 
     if (!formData.password || formData.password.length < 4) {
       errs.password = "Password must be at least 4 characters.";
+    }
+
+    if (mode === "register") {
+      if (formData.password !== formData.confirmPassword) {
+        errs.confirmPassword = "Passwords do not match.";
+      }
     }
 
     setErrors(errs);
@@ -44,67 +84,172 @@ const LoginPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setLoginFailed(false);
     if (!validate()) return;
 
     setSubmitting(true);
 
-    // Mocked login logic, simulate delay
     setTimeout(() => {
-      if (formData.phone === "+46700000000" && formData.password === "1234") {
-        saveUser({ phone: formData.phone });
-        navigate("/checkout");
+      if (mode === "login") {
+        if (formData.phone === "+46700000000" && formData.password === "1234") {
+          saveUser({ phone: formData.phone });
+          navigate("/checkout");
+        } else {
+          setFeedback("Incorrect phone or password.");
+          setSubmitting(false);
+        }
       } else {
-        setLoginFailed(true);
-        setSubmitting(false);
+        saveUser({ ...formData });
+        navigate("/checkout");
       }
     }, 800);
   };
 
   return (
-    <main className="login-page flex flex-center h-full">
-      <section
-        className="login-box bg-white rounded shadow-lg p-8 w-full max-w-full"
-        style={{ maxWidth: "400px" }}
-      >
-        <h1 className="text-center mb-6">Login</h1>
+    <main className="login-page">
+      <section className="login-section">
+        <div className="container">
+          <h1 className="login-title">
+            {mode === "login" ? "Login" : "Create Account"}
+          </h1>
+          <div className="login-box">
+            <form onSubmit={handleSubmit}>
+              <div className={`form-group ${errors.phone ? "has-error" : ""}`}>
+                <label>Phone Number *</label>
+                <input
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                />
+                <span className="form-error">{errors.phone}</span>
+              </div>
 
-        <form onSubmit={handleSubmit}>
-          <div className={`form-group ${errors.phone ? "has-error" : ""}`}>
-            <label>Phone Number</label>
-            <input
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-            />
-            <span className="form-error">{errors.phone}</span>
+              <div
+                className={`form-group ${errors.password ? "has-error" : ""}`}
+              >
+                <label>Password *</label>
+                <input
+                  name="password"
+                  type="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                />
+                <span className="form-error">{errors.password}</span>
+              </div>
+
+              {mode === "register" && (
+                <>
+                  <div
+                    className={`form-group ${
+                      errors.confirmPassword ? "has-error" : ""
+                    }`}
+                  >
+                    <label>Confirm Password *</label>
+                    <input
+                      name="confirmPassword"
+                      type="password"
+                      value={formData.confirmPassword}
+                      onChange={handleChange}
+                    />
+                    <span className="form-error">{errors.confirmPassword}</span>
+                  </div>
+
+                  <div
+                    className={`form-group ${
+                      errors.fullName ? "has-error" : ""
+                    }`}
+                  >
+                    <label>Full Name *</label>
+                    <input
+                      name="fullName"
+                      value={formData.fullName}
+                      onChange={handleChange}
+                    />
+                    <span className="form-error">{errors.fullName}</span>
+                  </div>
+
+                  <div className="form-group">
+                    <label>Street Address</label>
+                    <input
+                      name="streetAddress"
+                      value={formData.streetAddress}
+                      onChange={handleChange}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>Apartment / Floor</label>
+                    <input
+                      name="apartment"
+                      value={formData.apartment}
+                      onChange={handleChange}
+                    />
+                  </div>
+                  <div className="row">
+                    <div className="form-group">
+                      <label>City</label>
+                      <input
+                        name="city"
+                        value={formData.city}
+                        onChange={handleChange}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label>Postal Code</label>
+                      <input
+                        name="postalCode"
+                        value={formData.postalCode}
+                        onChange={handleChange}
+                      />
+                    </div>
+                  </div>
+                </>
+              )}
+
+              {feedback && (
+                <p className="form-error text-center mt-4">{feedback}</p>
+              )}
+
+              <button
+                type="submit"
+                className="btn btn-primary w-full mt-4"
+                disabled={submitting}
+              >
+                {submitting
+                  ? mode === "login"
+                    ? "Logging in..."
+                    : "Creating..."
+                  : mode === "login"
+                  ? "Login"
+                  : "Create Account"}
+              </button>
+            </form>
+
+            <div className="text-center mt-4">
+              {mode === "login" ? (
+                <p className="text-muted">
+                  No account?{" "}
+                  <button
+                    type="button"
+                    className="btn btn-outline"
+                    onClick={toggleMode}
+                  >
+                    Create one
+                  </button>
+                </p>
+              ) : (
+                <p className="text-muted">
+                  Already registered?{" "}
+                  <button
+                    type="button"
+                    className="btn btn-outline"
+                    onClick={toggleMode}
+                  >
+                    Login here
+                  </button>
+                </p>
+              )}
+            </div>
           </div>
-
-          <div className={`form-group ${errors.password ? "has-error" : ""}`}>
-            <label>Password</label>
-            <input
-              name="password"
-              type="password"
-              value={formData.password}
-              onChange={handleChange}
-            />
-            <span className="form-error">{errors.password}</span>
-          </div>
-
-          {loginFailed && (
-            <p className="form-error text-center mt-4">
-              Incorrect phone or password.
-            </p>
-          )}
-
-          <button
-            type="submit"
-            className="btn btn-primary w-full mt-4"
-            disabled={submitting}
-          >
-            {submitting ? "Logging in..." : "Login"}
-          </button>
-        </form>
+        </div>
       </section>
     </main>
   );

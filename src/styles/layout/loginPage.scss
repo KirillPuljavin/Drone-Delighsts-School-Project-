@@ -16,7 +16,7 @@
 
     .container {
       @include container;
-      max-width: 400px !important;
+      max-width: 600px !important;
       margin: 0 auto;
       width: 100%;
     }
@@ -37,6 +37,16 @@
       form {
         display: flex;
         flex-direction: column;
+
+        .row {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 1rem;
+
+          @include respond-sm {
+            grid-template-columns: 1fr;
+          }
+        }
 
         .btn {
           @extend .w-full;
