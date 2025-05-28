@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getCart, clearCart } from "../utils/cartService";
-import { getUser, saveUser } from "../utils/userService";
+import { getUser } from "../utils/userService";
 import "./../styles/layout/checkoutPage.scss";
 
 const CheckoutPage = () => {
@@ -17,7 +17,6 @@ const CheckoutPage = () => {
     city: "",
     postalCode: "",
     phone: "",
-    deliveryMethod: "Standard (30–45 min)",
     deliveryNote: "",
     coupon: "",
   });
@@ -25,11 +24,10 @@ const CheckoutPage = () => {
   const [attemptedSubmit, setAttemptedSubmit] = useState(false);
 
   useEffect(() => {
-    let currentUser = getUser();
-
+    const currentUser = getUser();
     if (!currentUser) {
-      currentUser = { username: "USER" };
-      saveUser(currentUser);
+      navigate("/login");
+      return;
     }
 
     setUser(currentUser);
@@ -38,12 +36,12 @@ const CheckoutPage = () => {
     if (currentUser.savedFormData) {
       setFormData(currentUser.savedFormData);
     }
-  }, []);
+  }, [navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    if (attemptedSubmit) validate(); // live re-validate on change after submit attempt
+    if (attemptedSubmit) validate();
   };
 
   const validate = () => {
@@ -167,20 +165,6 @@ const CheckoutPage = () => {
               onChange={handleChange}
             />
             <span className="form-error">{errors.phone}</span>
-          </div>
-
-          <h2>Delivery Method</h2>
-          <div className="form-group">
-            <label>Select a method</label>
-            <select
-              name="deliveryMethod"
-              value={formData.deliveryMethod}
-              onChange={handleChange}
-            >
-              <option>Standard (30–45 min)</option>
-              <option>Express (+25 SEK, 15–20 min)</option>
-              <option>Scheduled (Choose Time)</option>
-            </select>
           </div>
 
           <h2>Delivery Instructions</h2>
