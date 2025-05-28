@@ -1,0 +1,89 @@
+// File: src/styles/layout/checkoutPage.scss
+@use "./index.scss" as *;
+
+.checkout-page {
+  @extend .pt-8;
+  @extend .pb-8;
+  background-color: var(--color-bg);
+
+  .checkout-layout {
+    @include container;
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 2rem;
+
+    @include respond-md {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .checkout-form {
+    background-color: var(--color-surface);
+    @extend .p-8;
+    @extend .rounded;
+    @extend .shadow-sm;
+
+    h2 {
+      @extend .mb-4;
+      @extend .mt-6;
+    }
+
+    input,
+    select,
+    textarea {
+      @extend .mb-4;
+      width: 100%;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      @extend .grid-gap-md;
+
+      @include respond-sm {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    textarea {
+      resize: vertical;
+    }
+  }
+
+  .checkout-summary {
+    background-color: var(--color-white);
+    @extend .p-8;
+    @extend .rounded;
+    @extend .shadow-lg;
+    position: sticky;
+    top: 2rem;
+    align-self: start;
+
+    h2 {
+      @extend .mb-4;
+    }
+
+    ul {
+      @extend .mb-6;
+
+      li {
+        @extend .mb-2;
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+
+    .total {
+      border-top: 1px solid var(--color-border);
+      @extend .pt-4;
+      @extend .mb-6;
+      display: flex;
+      justify-content: space-between;
+      font-weight: bold;
+    }
+
+    .btn {
+      @extend .w-full;
+    }
+  }
+}

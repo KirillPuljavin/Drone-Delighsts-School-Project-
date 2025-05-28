@@ -63,20 +63,22 @@
         flex-direction: column;
 
         .item-name {
+          height: 50% !important;
           font-weight: 600;
           font-size: 1rem;
           margin-bottom: 0.5rem;
         }
 
         .qty-controls {
+          height: 50% !important;
           display: flex;
           gap: 0.5rem;
 
           button {
-            width: 32px;
-            height: 32px;
-            padding: 0;
             @extend .flex-center;
+            width: 25px;
+            height: 25px;
+            padding: 0;
             background-color: var(--color-secondary);
             color: var(--color-text);
             font-size: 1.2rem;
