@@ -5,6 +5,13 @@ import "./../styles/layout/menuPage.scss";
 import { addToCart } from "../utils/cartService";
 import { getProducts } from "../api/productService";
 
+const sectionLabels = {
+  starter: "Starters",
+  main: "Main Courses",
+  drink: "Drinks",
+  dessert: "Desserts",
+};
+
 const categories = ["all", "starter", "main", "drink", "dessert", "favorites"];
 
 const MenuPage = () => {
@@ -49,8 +56,8 @@ const MenuPage = () => {
 
   const filteredItems = allItems
     .filter((item) => {
-      if (activeCategory === "all") return true;
       if (activeCategory === "favorites") return favorites.includes(item.id);
+      if (activeCategory === "all") return true;
       return item.category === activeCategory;
     })
     .filter((item) =>
@@ -106,32 +113,60 @@ const MenuPage = () => {
         </div>
       </section>
 
-      {/* Menu Grid */}
+      {/* Menu Sections */}
       <section className="menu-grid">
-        <div className="container grid grid-auto grid-gap-md">
-          {filteredItems.map((item) => (
-            <div
-              className="menu-card"
-              key={item.id}
-              onClick={() => handleItemClick(item)}
-            >
-              <div
-                className={`favorite-icon ${
-                  favorites.includes(item.id) ? "liked" : ""
-                }`}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  toggleFavorite(item.id);
-                }}
-                title="Toggle favorite"
-              >
-                ♥
+        <div className="container">
+          {Object.entries(sectionLabels).map(([key, label]) => {
+            // Don't render unrelated categories unless in 'all' or 'favorites'
+            if (
+              activeCategory !== "all" &&
+              activeCategory !== "favorites" &&
+              activeCategory !== key
+            ) {
+              return null;
+            }
+
+            const items = filteredItems.filter((item) => item.category === key);
+
+            return (
+              <div key={key} className="menu-section">
+                <hr />
+                <h2>{label}</h2>
+                {items.length === 0 ? (
+                  <p className="no-items">No items to display here.</p>
+                ) : (
+                  <div className="grid grid-auto grid-gap-md">
+                    {items.map((item) => (
+                      <div
+                        className="menu-card"
+                        key={item.id}
+                        onClick={() => handleItemClick(item)}
+                      >
+                        <div
+                          className={`favorite-icon ${
+                            favorites.includes(item.id) ? "liked" : ""
+                          }`}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toggleFavorite(item.id);
+                          }}
+                          title="Toggle favorite"
+                        >
+                          ♥
+                        </div>
+                        <img
+                          src={`/assets/food/${item.image}`}
+                          alt={item.name}
+                        />
+                        <h3>{item.name}</h3>
+                        <p>{item.price} SEK</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
-              <img src={`/assets/food/${item.image}`} alt={item.name} />
-              <h3>{item.name}</h3>
-              <p>{item.price} SEK</p>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
 
@@ -152,12 +187,10 @@ const MenuPage = () => {
               src={`/assets/food/${selectedItem.image}`}
               alt={selectedItem.name}
             />
-
             <div className="modal-content">
               <h2>{selectedItem.name}</h2>
               <p className="modal-description">{selectedItem.description}</p>
             </div>
-
             <div className="modal-footer">
               <div className="footer-row">
                 <span className="price">{selectedItem.price} SEK</span>

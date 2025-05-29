@@ -2,35 +2,187 @@
   "products": [
     {
       "id": 1,
-      "name": "Sky Burger",
-      "category": "main",
-      "price": 99,
-      "image": "burger.jpg",
-      "description": "A towering burger launched by our finest drone chefs."
+      "name": "Asian Crisps",
+      "category": "starter",
+      "price": 45,
+      "image": "asian-crisps.png",
+      "description": "Light, crunchy rice crisps with a sesame kick—straight from the drone hatch."
     },
     {
       "id": 2,
-      "name": "Drone Fries",
-      "category": "side",
-      "price": 49,
-      "image": "fries.jpg",
-      "description": "Crispy fries delivered by our speedy drones."
+      "name": "Sky Burger",
+      "category": "main",
+      "price": 99,
+      "image": "burger.png",
+      "description": "A towering burger launched by our finest drone chefs, grilled at altitude."
     },
     {
       "id": 3,
-      "name": "Aero Salad",
-      "category": "side",
-      "price": 39,
-      "image": "salad.jpg",
-      "description": "A fresh salad tossed in the sky and delivered to you."
+      "name": "Cloud Cake",
+      "category": "dessert",
+      "price": 65,
+      "image": "cake.png",
+      "description": "Fluffy sponge and whipped layers, delivered smoother than air traffic control."
     },
     {
       "id": 4,
-      "name": "Cloudy Shake",
+      "name": "Chicken Wings",
+      "category": "starter",
+      "price": 69,
+      "image": "chicken-wings.png",
+      "description": "Spicy, sticky, and drone-lifted—because good wings should fly."
+    },
+    {
+      "id": 5,
+      "name": "Drone Brew",
       "category": "drink",
-      "price": 59,
-      "image": "shake.jpg",
-      "description": "A creamy shake that feels like drinking clouds."
+      "price": 29,
+      "image": "coffee.png",
+      "description": "Freshly roasted coffee that parachutes into your hands warm."
+    },
+    {
+      "id": 6,
+      "name": "Buzz Cola",
+      "category": "drink",
+      "price": 25,
+      "image": "cola.jpg",
+      "description": "Ice-cold, carbonated, and dropped with precision fizz."
+    },
+    {
+      "id": 7,
+      "name": "Crispy Chicken Bites",
+      "category": "starter",
+      "price": 55,
+      "image": "crispy-chicken.png",
+      "description": "Golden-crusted bites that hover in flavor and crunch."
+    },
+    {
+      "id": 8,
+      "name": "Fish & Chips",
+      "category": "main",
+      "price": 79,
+      "image": "fish-chips.png",
+      "description": "Pub-style battered fish with thick-cut chips—flight approved."
+    },
+    {
+      "id": 9,
+      "name": "Seaside Plate",
+      "category": "main",
+      "price": 89,
+      "image": "fish-plate.png",
+      "description": "A classy selection of grilled seafood, sky-curated."
+    },
+    {
+      "id": 10,
+      "name": "Grilled Chicken",
+      "category": "main",
+      "price": 92,
+      "image": "grilled-chicken.jpg",
+      "description": "Juicy, marinated fillets with altitude seasoning."
+    },
+    {
+      "id": 11,
+      "name": "Deluxe Ice Cream",
+      "category": "dessert",
+      "price": 49,
+      "image": "ice-cream-deluxe.png",
+      "description": "Triple scoop madness with no-melt drone priority."
+    },
+    {
+      "id": 12,
+      "name": "Fruit Juice",
+      "category": "drink",
+      "price": 22,
+      "image": "juice.jpg",
+      "description": "Fresh-pressed and turbulence-proof."
+    },
+    {
+      "id": 13,
+      "name": "Meat Skewers",
+      "category": "main",
+      "price": 87,
+      "image": "meat-skewer.png",
+      "description": "Charred, tender, and sky-kebabed to perfection."
+    },
+    {
+      "id": 14,
+      "name": "Sky Pizza",
+      "category": "main",
+      "price": 95,
+      "image": "pizza.png",
+      "description": "Thin crust, high velocity—delivered at cruising speed."
+    },
+    {
+      "id": 15,
+      "name": "Ramen Bowl",
+      "category": "main",
+      "price": 78,
+      "image": "ramen.png",
+      "description": "Rich broth and noodles, drone-lid sealed for slurp-safety."
+    },
+    {
+      "id": 16,
+      "name": "Altitude Sandwich",
+      "category": "main",
+      "price": 72,
+      "image": "sandwich.png",
+      "description": "Layered thick, cut clean, and flight-approved."
+    },
+    {
+      "id": 17,
+      "name": "Shrimp Wok",
+      "category": "main",
+      "price": 88,
+      "image": "shrimp-wok.png",
+      "description": "Quick-tossed shrimp, soy glaze, drone-dished."
+    },
+    {
+      "id": 18,
+      "name": "Steak Lift",
+      "category": "main",
+      "price": 109,
+      "image": "steak.png",
+      "description": "Grilled sirloin packed with high-altitude flavor."
+    },
+    {
+      "id": 19,
+      "name": "Spicy Chicken Bites",
+      "category": "starter",
+      "price": 58,
+      "image": "tasty-chicken-bites.png",
+      "description": "Fire-seasoned and served at top cruising heat."
+    },
+    {
+      "id": 20,
+      "name": "Flight Tea",
+      "category": "drink",
+      "price": 20,
+      "image": "tea.png",
+      "description": "Brewed high, lands smooth."
+    },
+    {
+      "id": 21,
+      "name": "Al Dente Veggies",
+      "category": "side",
+      "price": 42,
+      "image": "vegetables-al-dente.png",
+      "description": "Steamed and crisp, chopped for sky-freshness."
+    },
+    {
+      "id": 22,
+      "name": "Chroma Veg Mix",
+      "category": "side",
+      "price": 39,
+      "image": "vegetables-chroma.png",
+      "description": "Colorful roasted veggie medley, flight prepped."
+    },
+    {
+      "id": 23,
+      "name": "Vietnamese Bowl",
+      "category": "main",
+      "price": 91,
+      "image": "vietnamese.png",
+      "description": "Fresh herbs, rice noodles, and balance in every lift-off."
     }
   ],
   "orders": [],
