@@ -29,21 +29,26 @@
 }
 
 [data-theme="dark"] {
-  --color-bg: #1b1b1f;
-  --color-surface: #2a2a2e;
+  --color-bg: #181818;
+  --color-surface: #222227;
   --color-primary: #ff6b6b;
-  --color-accent: #f5b84b;
+  --color-accent: #f4b942;
   --color-secondary: #ff8c4c;
   --color-text: #f2f2f2;
-  --color-muted: #999999;
-  --color-white: #1b1b1f;
+  --color-muted: #bbbbbb;
+  --color-white: #2a2d32;
 
-  --shadow-sm: 0 1px 4px rgba(255, 255, 255, 0.1);
-  --shadow-lg: 0 4px 16px rgba(255, 255, 255, 0.15);
+  --color-error: #ff6b6b;
+  --color-success: #8bc34a;
+  --color-warning: #ffc107;
+  --color-info: #29b6f6;
 
-  --color-focus: #f8c26a;
+  --color-focus: #ffd166;
   --color-hover: rgba(255, 255, 255, 0.05);
   --color-border: rgba(255, 255, 255, 0.1);
+
+  --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.5);
 }
 
 [data-theme="dark"] hr {
@@ -197,6 +202,28 @@ select:focus {
   outline: none;
   border-color: var(--color-primary);
   box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.2);
+}
+
+[data-theme="dark"] input,
+[data-theme="dark"] select,
+[data-theme="dark"] textarea {
+  background-color: var(--color-white);
+  color: #f2f2f2;
+  border: 1px solid #444;
+}
+
+[data-theme="dark"] input:hover,
+[data-theme="dark"] select:hover,
+[data-theme="dark"] textarea:hover {
+  background-color: #2e2e2e;
+}
+
+[data-theme="dark"] input:focus,
+[data-theme="dark"] textarea:focus,
+[data-theme="dark"] select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.3);
 }
 
 textarea {
