@@ -1,23 +1,31 @@
 // File: src/components/Header.jsx
 
 import { Link, useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import logo from "../assets/logo.png";
 import { getCart } from "../utils/cartService";
 
 const Header = () => {
   const location = useLocation();
   const [cartCount, setCartCount] = useState(0);
+  const [animate, setAnimate] = useState(false);
+  const prevCount = useRef(0);
 
-  // Poll cart count every 500ms for simplicity (replace with event-driven if needed)
   useEffect(() => {
     const updateCartCount = () => {
       const cart = getCart();
-      const count = cart.reduce((acc, item) => acc + item.quantity, 0);
-      setCartCount(count);
+      const newCount = cart.reduce((acc, item) => acc + item.quantity, 0);
+
+      if (newCount > prevCount.current) {
+        setAnimate(true);
+        setTimeout(() => setAnimate(false), 400);
+      }
+
+      prevCount.current = newCount;
+      setCartCount(newCount);
     };
 
-    updateCartCount(); // initial load
+    updateCartCount();
     const interval = setInterval(updateCartCount, 500);
     return () => clearInterval(interval);
   }, [location]);
@@ -34,9 +42,10 @@ const Header = () => {
           <Link to="/menu" className="nav-link">
             Menu
           </Link>
-          <Link to="/cart" className="cart-icon-wrap" aria-label="View Cart">
+
+          <Link to="/cart" className="icon-link cart" aria-label="View Cart">
             <svg
-              className="cart-icon"
+              className={`icon ${animate ? "pulse" : ""}`}
               fill="none"
               stroke="currentColor"
               strokeWidth="2"
@@ -48,6 +57,24 @@ const Header = () => {
               <circle cx="20" cy="21" r="1" />
             </svg>
             {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
+          </Link>
+
+          <Link
+            to="/profile"
+            className="icon-link profile"
+            aria-label="Profile"
+          >
+            <svg
+              className="icon"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle cx="12" cy="8" r="4" />
+              <path d="M4 20c0-4 4-7 8-7s8 3 8 7" />
+            </svg>
           </Link>
         </nav>
       </div>
@@ -100,28 +127,43 @@ const Header = () => {
           font-weight: 600;
           font-size: 1rem;
           color: var(--color-text);
-          position: relative;
         }
 
         .nav-link:hover {
           color: var(--color-primary);
         }
 
-        .cart-icon-wrap {
+        .icon-link {
           position: relative;
           display: flex;
           align-items: center;
         }
 
-        .cart-icon {
+        .icon {
           width: 28px;
           height: 28px;
           color: var(--color-primary);
           transition: transform 0.3s ease;
         }
 
-        .cart-icon-wrap:hover .cart-icon {
+        .icon-link:hover .icon {
           transform: scale(1.1);
+        }
+
+        .pulse {
+          animation: pulseAnim 0.4s ease-out;
+        }
+
+        @keyframes pulseAnim {
+          0% {
+            transform: scale(1);
+          }
+          50% {
+            transform: scale(1.25);
+          }
+          100% {
+            transform: scale(1);
+          }
         }
 
         .cart-badge {
@@ -148,7 +190,7 @@ const Header = () => {
             font-size: 1.25rem;
           }
 
-          .cart-icon {
+          .icon {
             width: 24px;
             height: 24px;
           }
