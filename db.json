@@ -186,5 +186,16 @@
     }
   ],
   "orders": [],
-  "users": []
+  "users": [
+    {
+      "id": 1,
+      "phone": "user",
+      "password": "password",
+      "fullName": "Jane Drone",
+      "streetAddress": "Flightpath Street 42",
+      "apartment": "3B",
+      "city": "Stockholm",
+      "postalCode": "11223"
+    }
+  ]
 }
