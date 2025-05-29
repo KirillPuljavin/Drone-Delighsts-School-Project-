@@ -3,32 +3,22 @@
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import "./../styles/layout/homePage.scss";
+import { useEffect, useState } from "react";
+import { getProducts } from "../api/productService";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const trendingData = [
-  {
-    id: 1,
-    name: "Spicy Tuna Roll",
-    image: "/food/sushi.jpg",
-    desc: "Sea to sky, fresh and fast",
-  },
-  {
-    id: 2,
-    name: "Sky Burger",
-    image: "/food/burger.jpg",
-    desc: "Char-grilled and delivered via cloud",
-  },
-  {
-    id: 3,
-    name: "Green Orbit Salad",
-    image: "/food/salad.jpg",
-    desc: "Light, crisp, drone-lifted",
-  },
-];
-
 const HomePage = () => {
+  const [trending, setTrending] = useState([]);
+
+  useEffect(() => {
+    getProducts().then((data) => {
+      const limited = data.slice(0, 5);
+      setTrending(limited);
+    });
+  }, []);
+
   const sliderSettings = {
     dots: false,
     infinite: true,
@@ -108,9 +98,9 @@ const HomePage = () => {
 
           <div className="carousel-wrapper">
             <Slider {...sliderSettings}>
-              {trendingData.map((item) => (
+              {trending.map((item) => (
                 <div key={item.id} className="carousel-item">
-                  <img src={item.image} alt={item.name} />
+                  <img src={`/assets/food/${item.image}`} alt={item.name} />
                   <h3>{item.name}</h3>
                   <p>{item.desc}</p>
                 </div>
