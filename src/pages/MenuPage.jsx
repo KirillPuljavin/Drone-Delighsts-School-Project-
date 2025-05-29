@@ -3,89 +3,7 @@
 import { useState, useEffect } from "react";
 import "./../styles/layout/menuPage.scss";
 import { addToCart } from "../utils/cartService";
-
-const demoItems = [
-  {
-    id: 1,
-    name: "Sky Burger",
-    category: "main",
-    price: 99,
-    image: "/food/burger.jpg",
-    description: "A towering burger launched by our finest drone chefs.",
-  },
-  {
-    id: 2,
-    name: "Orbit Salad",
-    category: "starter",
-    price: 75,
-    image: "/food/salad.jpg",
-    description: "Fresh greens assembled with orbital precision.",
-  },
-  {
-    id: 3,
-    name: "Tuna Roll",
-    category: "starter",
-    price: 120,
-    image: "/food/sushi.jpg",
-    description: "Sashimi-grade tuna, rolled for max altitude delivery.",
-  },
-  {
-    id: 4,
-    name: "Choco Cloud",
-    category: "dessert",
-    price: 60,
-    image: "/food/chocolate.jpg",
-    description: "Fluffy, rich, and drone-dropped with love.",
-  },
-  {
-    id: 5,
-    name: "Drone Brew",
-    category: "drink",
-    price: 30,
-    image: "/food/coffee.jpg",
-    description: "Roasted high, delivered higher.",
-  },
-  {
-    id: 6,
-    name: "Buzzing Soda",
-    category: "drink",
-    price: 25,
-    image: "/food/soda.jpg",
-    description: "Carbonated at altitude. Crispy.",
-  },
-  {
-    id: 7,
-    name: "Steak Lift",
-    category: "main",
-    price: 149,
-    image: "/food/steak.jpg",
-    description: "Juicy sirloin flying straight to you.",
-  },
-  {
-    id: 8,
-    name: "Nacho Orbiter",
-    category: "starter",
-    price: 65,
-    image: "/food/nachos.jpg",
-    description: "Layers of cheese and flight fuel.",
-  },
-  {
-    id: 9,
-    name: "Fruit Altitude",
-    category: "dessert",
-    price: 55,
-    image: "/food/fruit.jpg",
-    description: "Seasonal fruits arranged midair.",
-  },
-  {
-    id: 10,
-    name: "Chicken Wrap",
-    category: "main",
-    price: 89,
-    image: "/food/wrap.jpg",
-    description: "Grilled wrap packed with sky fuel.",
-  },
-];
+import { getProducts } from "../api/productService";
 
 const categories = ["all", "starter", "main", "drink", "dessert", "favorites"];
 
@@ -104,6 +22,11 @@ const MenuPage = () => {
       return [];
     }
   });
+
+  const [allItems, setAllItems] = useState([]);
+  useEffect(() => {
+    getProducts().then(setAllItems);
+  }, []);
 
   useEffect(() => {
     localStorage.setItem("favorites", JSON.stringify(favorites));
@@ -124,7 +47,7 @@ const MenuPage = () => {
     setSelectedItem(null);
   };
 
-  const filteredItems = demoItems
+  const filteredItems = allItems
     .filter((item) => {
       if (activeCategory === "all") return true;
       if (activeCategory === "favorites") return favorites.includes(item.id);
@@ -204,7 +127,7 @@ const MenuPage = () => {
               >
                 ♥
               </div>
-              <img src={item.image} alt={item.name} />
+              <img src={`/assets/food/${item.image}`} alt={item.name} />
               <h3>{item.name}</h3>
               <p>{item.price} SEK</p>
             </div>
@@ -225,7 +148,10 @@ const MenuPage = () => {
             >
               ♥
             </div>
-            <img src={selectedItem.image} alt={selectedItem.name} />
+            <img
+              src={`/assets/food/${selectedItem.image}`}
+              alt={selectedItem.name}
+            />
 
             <div className="modal-content">
               <h2>{selectedItem.name}</h2>
