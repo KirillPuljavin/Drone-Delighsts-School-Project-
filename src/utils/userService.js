@@ -1,6 +1,7 @@
 // File: src/utils/userService.js
 
-const USER_KEY = "drone-user";
+// LOCAL STORAGE ONLY
+const USER_KEY = "user";
 
 export const getUser = () => {
   const user = localStorage.getItem(USER_KEY);
