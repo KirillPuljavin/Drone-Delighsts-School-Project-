@@ -1,149 +1,156 @@
 // File: src/components/Header.jsx
 
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 import logo from "../assets/logo.png";
+import { getCart } from "../utils/cartService";
 
 const Header = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
+  const [cartCount, setCartCount] = useState(0);
+
+  // Poll cart count every 500ms for simplicity (replace with event-driven if needed)
+  useEffect(() => {
+    const updateCartCount = () => {
+      const cart = getCart();
+      const count = cart.reduce((acc, item) => acc + item.quantity, 0);
+      setCartCount(count);
+    };
+
+    updateCartCount(); // initial load
+    const interval = setInterval(updateCartCount, 500);
+    return () => clearInterval(interval);
+  }, [location]);
 
   return (
     <header className="site-header">
-      <div className="header-container">
-        <Link to="/" className="logo-wrap">
-          <img src={logo} alt="Drone Delights logo" className="logo" />
-          <span className="brand">Drone Delights</span>
+      <div className="header-inner">
+        <Link to="/" className="header-logo">
+          <img src={logo} alt="Drone Delights" />
+          <span>Drone Delights</span>
         </Link>
 
-        <button
-          className="nav-toggle"
-          onClick={() => setMenuOpen((prev) => !prev)}
-          aria-label="Toggle navigation"
-        >
-          ☰
-        </button>
-
-        <nav className={`nav-links ${menuOpen ? "open" : ""}`}>
-          <Link to="/" onClick={() => setMenuOpen(false)}>
-            Home
-          </Link>
-          <Link to="/menu" onClick={() => setMenuOpen(false)}>
+        <nav className="header-actions">
+          <Link to="/menu" className="nav-link">
             Menu
           </Link>
-          <Link to="/cart" onClick={() => setMenuOpen(false)}>
-            Cart
-          </Link>
-          <Link to="/checkout" onClick={() => setMenuOpen(false)}>
-            Checkout
-          </Link>
-          <Link to="/confirmation" onClick={() => setMenuOpen(false)}>
-            Confirm
+          <Link to="/cart" className="cart-icon-wrap" aria-label="View Cart">
+            <svg
+              className="cart-icon"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M3 3h2l.4 2M7 13h10l4-8H5.4" />
+              <circle cx="9" cy="21" r="1" />
+              <circle cx="20" cy="21" r="1" />
+            </svg>
+            {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
           </Link>
         </nav>
       </div>
 
       <style jsx>{`
         .site-header {
-          background-color: var(--color-surface);
+          background: var(--color-surface);
           box-shadow: var(--shadow-sm);
-          padding: 1rem 1.5rem;
-          position: relative;
-          z-index: 10;
+          padding: 1rem 2rem;
+          position: sticky;
+          top: 0;
+          z-index: 100;
         }
 
-        .header-container {
+        .header-inner {
           display: flex;
           justify-content: space-between;
           align-items: center;
           max-width: 1200px;
           margin: 0 auto;
-          padding: 0 1rem;
-          position: relative;
         }
 
-        .logo-wrap {
+        .header-logo {
           display: flex;
           align-items: center;
-          gap: 0.5rem;
+          gap: 0.75rem;
           text-decoration: none;
         }
 
-        .logo {
-          width: 40px;
-          height: 40px;
+        .header-logo img {
+          width: 48px;
+          height: 48px;
           border-radius: 50%;
+          object-fit: cover;
         }
 
-        .brand {
+        .header-logo span {
+          font-size: 1.5rem;
           font-weight: 700;
-          font-size: 1.25rem;
           color: var(--color-primary);
         }
 
-        .nav-toggle {
-          display: none;
-        }
-
-        .nav-links {
+        .header-actions {
           display: flex;
-          gap: 1.5rem;
+          align-items: center;
+          gap: 2rem;
         }
 
-        .nav-links a {
+        .nav-link {
+          font-weight: 600;
+          font-size: 1rem;
           color: var(--color-text);
-          font-weight: 500;
-          transition: color 0.2s ease;
-          padding: 0.5rem 0.75rem;
+          position: relative;
         }
 
-        .nav-links a:hover {
+        .nav-link:hover {
           color: var(--color-primary);
+        }
+
+        .cart-icon-wrap {
+          position: relative;
+          display: flex;
+          align-items: center;
+        }
+
+        .cart-icon {
+          width: 28px;
+          height: 28px;
+          color: var(--color-primary);
+          transition: transform 0.3s ease;
+        }
+
+        .cart-icon-wrap:hover .cart-icon {
+          transform: scale(1.1);
+        }
+
+        .cart-badge {
+          position: absolute;
+          top: -6px;
+          right: -10px;
+          background-color: var(--color-primary);
+          color: var(--color-white);
+          font-size: 0.75rem;
+          font-weight: 700;
+          border-radius: var(--radius-full);
+          padding: 0.15rem 0.5rem;
+          line-height: 1;
+          min-width: 20px;
+          text-align: center;
         }
 
         @media (max-width: 768px) {
-          .nav-toggle {
-            display: flex;
-            position: absolute;
-            right: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 50px;
-            height: 50px;
-            font-size: 1.5rem;
-            background: none;
-            border: none;
-            color: var(--color-primary);
-            align-items: center;
-            justify-content: center;
+          .header-actions {
+            gap: 1rem;
           }
 
-          .nav-links {
-            position: absolute;
-            top: 135%;
-            left: 0;
-            width: 100%;
-            background-color: var(--color-surface);
-            flex-direction: column;
-            align-items: stretch;
-            gap: 0;
-            display: none;
-            z-index: 5;
-            box-shadow: var(--shadow-sm);
+          .header-logo span {
+            font-size: 1.25rem;
           }
 
-          .nav-links.open {
-            display: flex;
-          }
-
-          .nav-links a {
-            display: block;
-            padding: 1rem;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-            text-align: center;
-          }
-
-          .nav-links a:last-child {
-            border-bottom: none;
+          .cart-icon {
+            width: 24px;
+            height: 24px;
           }
         }
       `}</style>
