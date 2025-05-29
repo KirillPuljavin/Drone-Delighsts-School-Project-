@@ -164,17 +164,21 @@
         user-select: none;
         transition: color 0.3s ease, transform 0.2s ease;
         @extend .flex-center;
+        opacity: 0.5;
 
         &.liked {
           color: var(--color-primary);
+          opacity: 1;
         }
 
         &:hover {
           transform: scale(1.2);
+          opacity: 1;
         }
 
         &:active {
           transform: scale(1.6);
+          opacity: 1;
         }
       }
 
