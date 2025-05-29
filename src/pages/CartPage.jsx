@@ -2,7 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getCart, updateQuantity, removeFromCart } from "../utils/cartService";
+import {
+  getCart,
+  updateQuantity,
+  removeFromCart,
+  clearCart,
+} from "../utils/cartService";
 import "./../styles/layout/cartPage.scss";
 
 const CartPage = () => {
@@ -22,6 +27,11 @@ const CartPage = () => {
   const handleRemove = (id) => {
     removeFromCart(id);
     setCartItems(getCart());
+  };
+
+  const handleClearCart = () => {
+    clearCart();
+    setCartItems([]);
   };
 
   const total = cartItems.reduce(
@@ -76,12 +86,19 @@ const CartPage = () => {
                   </li>
                 ))}
               </ul>
+              <button
+                className="btn btn-outline w-full mt-2"
+                onClick={handleClearCart}
+              >
+                Clear Cart
+              </button>
 
               <div className="cart-summary">
                 <div className="total-line">
                   <span>Total</span>
                   <strong>{total} kr</strong>
                 </div>
+
                 <Link to="/checkout">
                   <button className="btn btn-primary w-full mt-3">
                     Proceed to Checkout
