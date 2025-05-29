@@ -113,62 +113,75 @@
 .menu-grid {
   @extend .mt-4;
 
-  .menu-card {
-    background-color: var(--color-surface);
-    @extend .p-4;
-    text-align: center;
-    position: relative;
-    border-radius: var(--radius-sm);
-    box-shadow: var(--shadow-sm);
-    transition: transform 0.2s ease;
-    cursor: pointer;
+  .menu-section {
+    .grid {
+      margin-left: auto;
+      margin-right: auto;
+    }
 
-    img {
-      height: 120px;
-      object-fit: cover;
+    .menu-card {
+      background-color: var(--color-surface);
+      @extend .p-4;
+      text-align: center;
+      position: relative;
       border-radius: var(--radius-sm);
-      @extend .mb-3;
-    }
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s ease;
+      max-width: 400px;
 
-    h3 {
-      @extend .mb-1;
-    }
-
-    p {
-      color: var(--color-muted);
-      font-size: 0.95rem;
-    }
-
-    .favorite-icon {
-      position: absolute;
-      font-size: 2.5rem;
-      top: 12px;
-      right: 12px;
-      width: 30px;
-      height: 30px;
-      color: var(--color-accent);
-      z-index: 1;
       cursor: pointer;
-      user-select: none;
-      transition: color 0.3s ease, transform 0.2s ease;
-      @extend .flex-center;
 
-      &.liked {
-        color: var(--color-primary);
+      img {
+        width: auto;
+        height: 120px;
+        max-width: 100%;
+        object-fit: contain;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        @extend .mb-3;
+      }
+
+      h3 {
+        @extend .mb-1;
+      }
+
+      p {
+        color: var(--color-muted);
+        font-size: 0.95rem;
+      }
+
+      .favorite-icon {
+        position: absolute;
+        font-size: 2.5rem;
+        top: 12px;
+        right: 12px;
+        width: 30px;
+        height: 30px;
+        color: var(--color-accent);
+        z-index: 1;
+        cursor: pointer;
+        user-select: none;
+        transition: color 0.3s ease, transform 0.2s ease;
+        @extend .flex-center;
+
+        &.liked {
+          color: var(--color-primary);
+        }
+
+        &:hover {
+          color: var(--color-primary);
+        }
+
+        &:active {
+          transform: scale(1.6);
+        }
       }
 
       &:hover {
-        color: var(--color-primary);
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-lg);
       }
-
-      &:active {
-        transform: scale(1.6);
-      }
-    }
-
-    &:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-lg);
     }
   }
 }
