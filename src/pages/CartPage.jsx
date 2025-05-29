@@ -53,7 +53,7 @@ const CartPage = () => {
                         <button
                           onClick={() => handleQuantityChange(item.id, -1)}
                         >
-                          −
+                          -
                         </button>
                         <span>{item.quantity}</span>
                         <button

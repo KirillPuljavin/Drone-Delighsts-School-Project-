@@ -79,7 +79,10 @@ const CheckoutPage = () => {
 
   const handlePurchase = () => {
     setAttemptedSubmit(true);
-    if (!validate()) return;
+    if (!validate()) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
     console.log("Purchasing:", { user, cartItems, formData });
     clearCart();
     navigate("/confirmation");
