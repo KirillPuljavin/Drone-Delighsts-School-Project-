@@ -45,7 +45,7 @@
       "name": "Buzz Cola",
       "category": "drink",
       "price": 25,
-      "image": "cola.jpg",
+      "image": "cola.png",
       "description": "Ice-cold, carbonated, and dropped with precision fizz."
     },
     {
@@ -77,7 +77,7 @@
       "name": "Grilled Chicken",
       "category": "main",
       "price": 92,
-      "image": "grilled-chicken.jpg",
+      "image": "grilled-chicken.png",
       "description": "Juicy, marinated fillets with altitude seasoning."
     },
     {
@@ -93,7 +93,7 @@
       "name": "Fruit Juice",
       "category": "drink",
       "price": 22,
-      "image": "juice.jpg",
+      "image": "juice.png",
       "description": "Fresh-pressed and turbulence-proof."
     },
     {

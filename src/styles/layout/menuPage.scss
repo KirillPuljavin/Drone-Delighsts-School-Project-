@@ -117,6 +117,7 @@
     .grid {
       margin-left: auto;
       margin-right: auto;
+      @extend .mb-10;
     }
 
     .menu-card {
@@ -135,7 +136,6 @@
         width: auto;
         height: 120px;
         max-width: 100%;
-        object-fit: contain;
         display: block;
         margin-left: auto;
         margin-right: auto;
@@ -176,6 +176,24 @@
         &:active {
           transform: scale(1.6);
         }
+      }
+
+      .cart-qty-badge {
+        position: absolute;
+        bottom: 12px;
+        left: 12px;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background-color: var(--color-primary);
+        color: var(--color-white);
+        font-size: 0.85rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: none;
+        z-index: 1;
       }
 
       &:hover {
@@ -239,12 +257,12 @@
 
   img {
     width: 100%;
-    height: 180px;
-    object-fit: cover;
+    height: 250px;
+    object-fit: contain;
   }
 
   .modal-content {
-    padding: 1.5rem;
+    padding: 0 1.5rem;
 
     h2 {
       font-size: 1.3rem;

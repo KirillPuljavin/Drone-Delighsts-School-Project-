@@ -85,6 +85,7 @@ video,
 canvas {
   display: block;
   max-width: 100%;
+  object-fit: contain;
   height: auto;
 }
 
