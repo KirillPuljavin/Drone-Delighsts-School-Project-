@@ -1,0 +1,77 @@
+// File: src/styles/layout/confirmationPage.scss
+@use "./index.scss" as *;
+
+.confirmation-page {
+  @extend .pt-8;
+  @extend .pb-8;
+  background-color: var(--color-bg);
+
+  .container {
+    @include container;
+  }
+
+  .confirmation-box {
+    background-color: var(--color-surface);
+    @extend .p-8;
+    @extend .rounded;
+    @extend .shadow-sm;
+    max-width: 700px;
+    margin: 0 auto;
+
+    h1 {
+      font-size: 2rem;
+      @extend .mb-2;
+    }
+
+    p {
+      @extend .mb-2;
+      color: var(--color-text-muted);
+    }
+
+    .order-id {
+      @extend .mt-4;
+      font-weight: bold;
+      color: var(--color-primary);
+    }
+
+    .summary-section {
+      @extend .mt-6;
+
+      h2 {
+        font-size: 1.25rem;
+        @extend .mb-2;
+      }
+
+      p {
+        margin-bottom: 0.25rem;
+      }
+
+      .item-list {
+        list-style: none;
+        padding-left: 0;
+
+        li {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 0.25rem;
+        }
+      }
+
+      .total {
+        @extend .mt-4;
+        font-weight: bold;
+      }
+    }
+
+    .actions {
+      @extend .mt-6;
+      display: flex;
+      gap: 1rem;
+      justify-content: flex-start;
+
+      .btn {
+        min-width: 150px;
+      }
+    }
+  }
+}
