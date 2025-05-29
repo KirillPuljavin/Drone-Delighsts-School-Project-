@@ -25,8 +25,13 @@ export const addToCart = (item, quantity = 1) => {
 export const updateQuantity = (id, newQty) => {
   let cart = getCart();
   cart = cart
-    .map((item) => (item.id === id ? { ...item, quantity: newQty } : item))
-    .filter((item) => item.quantity > 0);
+    .map((item) => {
+      if (item.id === id) {
+        return newQty > 0 ? { ...item, quantity: newQty } : null;
+      }
+      return item;
+    })
+    .filter(Boolean);
   saveCart(cart);
 };
 

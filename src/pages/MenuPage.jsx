@@ -2,7 +2,12 @@
 
 import { useState, useEffect } from "react";
 import "./../styles/layout/menuPage.scss";
-import { addToCart } from "../utils/cartService";
+import {
+  addToCart,
+  getCart,
+  updateQuantity,
+  removeFromCart,
+} from "../utils/cartService";
 import { getProducts } from "../api/productService";
 
 const sectionLabels = {
@@ -21,6 +26,7 @@ const MenuPage = () => {
   const [quantity, setQuantity] = useState(1);
   const [showFilters, setShowFilters] = useState(false);
   const [activeCategory, setActiveCategory] = useState("all");
+
   const [favorites, setFavorites] = useState(() => {
     try {
       const stored = localStorage.getItem("favorites");
@@ -29,6 +35,16 @@ const MenuPage = () => {
       return [];
     }
   });
+
+  const [cartItems, setCartItems] = useState([]);
+
+  const refreshCart = () => {
+    setCartItems(getCart());
+  };
+
+  useEffect(() => {
+    refreshCart();
+  }, []);
 
   const [allItems, setAllItems] = useState([]);
   useEffect(() => {
@@ -46,12 +62,27 @@ const MenuPage = () => {
   };
 
   const handleItemClick = (item) => {
+    const cartEntry = cartItems.find((ci) => ci.id === item.id);
+    setQuantity(cartEntry ? cartEntry.quantity : 1); // default to 1 if not in cart
     setSelectedItem(item);
-    setQuantity(1);
   };
 
   const handleCloseModal = () => {
     setSelectedItem(null);
+  };
+
+  const handleUpdateCart = (item, qty) => {
+    if (qty <= 0) {
+      removeFromCart(item.id);
+    } else {
+      const cartEntry = cartItems.find((ci) => ci.id === item.id);
+      if (cartEntry) {
+        updateQuantity(item.id, qty);
+      } else {
+        addToCart(item, qty);
+      }
+    }
+    refreshCart();
   };
 
   const filteredItems = allItems
@@ -67,7 +98,6 @@ const MenuPage = () => {
 
   return (
     <main className="menu-page">
-      {/* Filter Block */}
       <section
         className={`menu-filters ${showFilters ? "is-visible" : "is-hidden"}`}
       >
@@ -86,7 +116,6 @@ const MenuPage = () => {
         </div>
       </section>
 
-      {/* Search + Sort */}
       <section className="menu-search-sort">
         <div className="container search-sort-row">
           <button
@@ -113,18 +142,15 @@ const MenuPage = () => {
         </div>
       </section>
 
-      {/* Menu Sections */}
       <section className="menu-grid">
         <div className="container">
           {Object.entries(sectionLabels).map(([key, label]) => {
-            // Don't render unrelated categories unless in 'all' or 'favorites'
             if (
               activeCategory !== "all" &&
               activeCategory !== "favorites" &&
               activeCategory !== key
-            ) {
+            )
               return null;
-            }
 
             const items = filteredItems.filter((item) => item.category === key);
 
@@ -136,32 +162,42 @@ const MenuPage = () => {
                   <p className="no-items">No items to display here.</p>
                 ) : (
                   <div className="grid grid-auto grid-gap-md">
-                    {items.map((item) => (
-                      <div
-                        className="menu-card"
-                        key={item.id}
-                        onClick={() => handleItemClick(item)}
-                      >
+                    {items.map((item) => {
+                      const cartEntry = cartItems.find(
+                        (ci) => ci.id === item.id
+                      );
+                      return (
                         <div
-                          className={`favorite-icon ${
-                            favorites.includes(item.id) ? "liked" : ""
-                          }`}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            toggleFavorite(item.id);
-                          }}
-                          title="Toggle favorite"
+                          className="menu-card"
+                          key={item.id}
+                          onClick={() => handleItemClick(item)}
                         >
-                          ♥
+                          <div
+                            className={`favorite-icon ${
+                              favorites.includes(item.id) ? "liked" : ""
+                            }`}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              toggleFavorite(item.id);
+                            }}
+                            title="Toggle favorite"
+                          >
+                            ♥
+                          </div>
+                          {cartEntry && cartEntry.quantity > 0 && (
+                            <div className="cart-qty-badge" title="In cart">
+                              {cartEntry.quantity}
+                            </div>
+                          )}
+                          <img
+                            src={`/assets/food/${item.image}`}
+                            alt={item.name}
+                          />
+                          <h3>{item.name}</h3>
+                          <p>{item.price} SEK</p>
                         </div>
-                        <img
-                          src={`/assets/food/${item.image}`}
-                          alt={item.name}
-                        />
-                        <h3>{item.name}</h3>
-                        <p>{item.price} SEK</p>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 )}
               </div>
@@ -170,7 +206,6 @@ const MenuPage = () => {
         </div>
       </section>
 
-      {/* Modal View */}
       {selectedItem && (
         <div className="menu-modal-overlay" onClick={handleCloseModal}>
           <div className="menu-modal" onClick={(e) => e.stopPropagation()}>
@@ -196,7 +231,7 @@ const MenuPage = () => {
                 <span className="price">{selectedItem.price} SEK</span>
                 <div className="quantity-controls">
                   <button
-                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                    onClick={() => setQuantity(Math.max(0, quantity - 1))}
                   >
                     -
                   </button>
@@ -207,11 +242,13 @@ const MenuPage = () => {
               <button
                 className="btn btn-primary"
                 onClick={() => {
-                  addToCart(selectedItem, quantity);
+                  handleUpdateCart(selectedItem, quantity);
                   handleCloseModal();
                 }}
               >
-                Add {quantity} to Cart
+                {quantity > 0
+                  ? `Set Quantity to ${quantity}`
+                  : "Remove from Cart"}
               </button>
             </div>
           </div>

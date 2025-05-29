@@ -43,7 +43,7 @@ const CartPage = () => {
                 {cartItems.map((item) => (
                   <li key={item.id} className="cart-item">
                     <img
-                      src={item.image}
+                      src={`/assets/food/${item.image}`}
                       alt={item.name}
                       className="cart-item-image"
                     />
