@@ -1,48 +1,65 @@
 // File: src/api/orderService.js
 
 const API_BASE = import.meta.env.VITE_API_URL;
-const USE_LOCAL = import.meta.env.VITE_USE_LOCAL === "true";
+const USE_LOCAL_DB = import.meta.env.VITE_USE_LOCAL === "true";
+const LOCAL_ORDER_KEY = "orders";
 
-export const getOrders = async () => {
-  if (USE_LOCAL) {
-    return JSON.parse(localStorage.getItem("orders") || "[]");
+import { v4 as uuidv4 } from "uuid";
+
+const loadAllOrders = async () => {
+  if (USE_LOCAL_DB) {
+    return JSON.parse(localStorage.getItem(LOCAL_ORDER_KEY) || "[]");
   }
   const res = await fetch(`${API_BASE}/orders`);
   return await res.json();
 };
 
-export const getOrder = async (id) => {
-  if (USE_LOCAL) {
-    const all = JSON.parse(localStorage.getItem("orders") || "[]");
-    return all.find((o) => o.id === id) || null;
+const saveAllOrders = (orders) => {
+  if (USE_LOCAL_DB) {
+    localStorage.setItem(LOCAL_ORDER_KEY, JSON.stringify(orders));
   }
-  const res = await fetch(`${API_BASE}/orders/${id}`);
-  return await res.json();
+};
+
+export const getAllOrders = async () => {
+  return await loadAllOrders();
+};
+
+export const getOrderByUUID = async (uuid) => {
+  const orders = await loadAllOrders();
+  return orders.find((o) => o.uuid === uuid) || null;
 };
 
 export const createOrder = async (order) => {
-  if (USE_LOCAL) {
-    const orders = JSON.parse(localStorage.getItem("orders") || "[]");
-    const newOrder = { ...order, id: Date.now() };
+  const newOrder = {
+    ...order,
+    id: USE_LOCAL_DB ? Date.now() : undefined,
+    uuid: uuidv4(),
+    createdAt: new Date().toISOString(),
+  };
+
+  if (USE_LOCAL_DB) {
+    const orders = await loadAllOrders();
     orders.push(newOrder);
-    localStorage.setItem("orders", JSON.stringify(orders));
+    saveAllOrders(orders);
     return newOrder;
   }
+
   const res = await fetch(`${API_BASE}/orders`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(order),
+    body: JSON.stringify(newOrder),
   });
   return await res.json();
 };
 
-export const deleteOrder = async (id) => {
-  if (USE_LOCAL) {
-    const orders = JSON.parse(localStorage.getItem("orders") || "[]");
-    const filtered = orders.filter((o) => o.id !== id);
-    localStorage.setItem("orders", JSON.stringify(filtered));
+export const deleteOrderById = async (id) => {
+  if (USE_LOCAL_DB) {
+    const orders = await loadAllOrders();
+    const updated = orders.filter((o) => o.id !== id);
+    saveAllOrders(updated);
     return { deleted: true };
   }
+
   const res = await fetch(`${API_BASE}/orders/${id}`, {
     method: "DELETE",
   });

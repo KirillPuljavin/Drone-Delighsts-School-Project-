@@ -1,0 +1,155 @@
+// File: src/styles/layout/profilePage.scss
+@use "./index.scss" as *;
+
+.profile-page {
+  @extend .pt-8;
+  @extend .pb-8;
+  background-color: var(--color-bg);
+
+  .profile-layout {
+    @include container;
+    @extend .flex-center;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .profile-form {
+    background-color: var(--color-surface);
+    @extend .p-8;
+    @extend .rounded;
+    @extend .shadow-sm;
+    display: flex;
+    flex-direction: column;
+    max-width: 700px;
+    width: 100%;
+
+    .user-info-box {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+
+      .user-name {
+        font-weight: 600;
+        font-size: 1.1rem;
+      }
+
+      .logout-btn {
+        @extend .btn;
+        @extend .btn-secondary;
+      }
+    }
+
+    .details-section,
+    .password-section {
+      display: flex;
+      flex-direction: column;
+      @extend .mt-6;
+      @extend .mb-2;
+
+      h2 {
+        @extend .mt-6;
+        @extend .mb-2;
+      }
+
+      .row {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        @extend .grid-gap-md;
+
+        @include respond-sm {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      button {
+        @extend .btn;
+        @extend .btn-primary;
+        align-self: flex-start;
+      }
+    }
+
+    .toggle-orders {
+      background: none;
+      color: var(--color-muted);
+      text-align: center;
+      width: 100%;
+      border: none;
+      margin-top: 2rem;
+
+      &:hover {
+        color: var(--color-primary);
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .order-history {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--color-primary);
+    }
+
+    .orders-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .order-entry {
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-lg);
+      }
+
+      .order-header,
+      .order-footer {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        font-size: 0.95rem;
+        color: var(--color-muted);
+      }
+
+      .order-items {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+
+        .item-row {
+          display: flex;
+          justify-content: space-between;
+          font-size: 1rem;
+          padding: 0.25rem 0;
+          border-bottom: 1px dashed var(--color-border);
+
+          .item-name {
+            font-weight: 500;
+          }
+
+          .item-qty {
+            font-style: italic;
+            color: var(--color-text);
+          }
+        }
+      }
+    }
+  }
+}

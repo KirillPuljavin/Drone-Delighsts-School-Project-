@@ -2,12 +2,18 @@
 
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import "../../styles/layout/loginPage.scss";
 import {
   registerUser,
   findUserByCredentials,
   cacheUserSession,
 } from "../../api/userService";
-import "../../styles/layout/loginPage.scss";
+import {
+  validatePhoneNumber,
+  validatePassword,
+  validatePasswordMatch,
+  validateFullName,
+} from "../../utils/validationService";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -53,30 +59,21 @@ const LoginPage = () => {
 
   const validate = () => {
     const errs = {};
-    const phone = formData.phone.trim();
-
-    const phoneValid =
-      phone === "user" ||
-      /^\+\d{6,15}$/.test(phone.replace(/\s|-/g, "")) ||
-      /^07\d{1}[-\s]?\d{3}[-\s]?\d{2}[-\s]?\d{2}$/.test(phone);
-
-    if (!phoneValid) {
-      errs.phone = "Use +4670XXXXXXX or 070-XXX XX XX format.";
-    }
-
-    if (!formData.password || formData.password.length < 4) {
-      errs.password = "Password must be at least 4 characters.";
-    }
+    errs.phone = validatePhoneNumber(formData.phone, { allowMockUser: true });
+    errs.password = validatePassword(formData.password, 4);
 
     if (mode === "register") {
-      if (!formData.fullName.trim().includes(" ")) {
-        errs.fullName = "Please enter your full name.";
-      }
-      if (formData.password !== formData.confirmPassword) {
-        errs.confirmPassword = "Passwords do not match.";
-      }
+      errs.confirmPassword = validatePasswordMatch(
+        formData.password,
+        formData.confirmPassword
+      );
+      errs.fullName = validateFullName(formData.fullName);
     }
 
+    // Remove nulls
+    Object.keys(errs).forEach((key) => {
+      if (errs[key] == null) delete errs[key];
+    });
     setErrors(errs);
     return Object.keys(errs).length === 0;
   };
