@@ -3,7 +3,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getCart, clearCart } from "../utils/cartService";
-import { getUser } from "../utils/userService";
+import {
+  loadUserSession,
+  getUserById,
+  clearUserSession,
+} from "../api/userService";
 import "./../styles/layout/checkoutPage.scss";
 
 const CheckoutPage = () => {
@@ -24,19 +28,37 @@ const CheckoutPage = () => {
   const [attemptedSubmit, setAttemptedSubmit] = useState(false);
 
   useEffect(() => {
-    const currentUser = getUser();
-    if (!currentUser) {
-      navigate("/login");
+    const session = loadUserSession();
+    if (session?.id == null) {
+      navigate("/login", { state: { from: "/checkout" } });
       return;
     }
 
-    setUser(currentUser);
-    setCartItems(getCart());
+    getUserById(session.id).then((data) => {
+      if (!data) {
+        navigate("/login", { state: { from: "/checkout" } });
+        return;
+      }
 
-    if (currentUser.savedFormData) {
-      setFormData(currentUser.savedFormData);
-    }
+      setUser(data);
+      setCartItems(getCart());
+
+      setFormData((prev) => ({
+        ...prev,
+        fullName: data.fullName || "",
+        streetAddress: data.streetAddress || "",
+        apartment: data.apartment || "",
+        city: data.city || "",
+        postalCode: data.postalCode || "",
+        phone: data.phone || "",
+      }));
+    });
   }, [navigate]);
+
+  const handleLogout = () => {
+    clearUserSession();
+    navigate("/login");
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -83,6 +105,7 @@ const CheckoutPage = () => {
       window.scrollTo({ top: 0, behavior: "smooth" });
       return;
     }
+
     console.log("Purchasing:", { user, cartItems, formData });
     clearCart();
     navigate("/confirmation");
@@ -96,12 +119,19 @@ const CheckoutPage = () => {
   return (
     <main className="checkout-page">
       <div className="container checkout-layout">
-        {/* Left: Form */}
         <div className="checkout-form">
           <h2>Your Account</h2>
-          <p>
-            Logged in as: <strong>{user?.username}</strong>
-          </p>
+          <div className="user-session">
+            <p>
+              Logged in as: <strong>{user?.fullName || user?.phone}</strong>
+            </p>
+            <button
+              className="btn btn-secondary logout-btn"
+              onClick={handleLogout}
+            >
+              Logout
+            </button>
+          </div>
 
           <h2>Delivery Address</h2>
 
@@ -191,7 +221,6 @@ const CheckoutPage = () => {
           </div>
         </div>
 
-        {/* Right: Summary */}
         <div className="checkout-summary">
           <h2>Order Summary</h2>
           <ul>

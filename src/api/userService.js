@@ -1,59 +1,70 @@
 // File: src/api/userService.js
 
 const API_BASE = import.meta.env.VITE_API_URL;
-const USE_LOCAL = import.meta.env.VITE_USE_LOCAL === "true";
+const USE_LOCAL_DB = import.meta.env.VITE_USE_LOCAL === "true";
 
-export const loginUser = async (username, password) => {
-  if (USE_LOCAL) {
-    const users = JSON.parse(localStorage.getItem("users") || "[]");
-    return (
-      users.find((u) => u.username === username && u.password === password) ||
-      null
-    );
-  }
-  const res = await fetch(
-    `${API_BASE}/users?username=${username}&password=${password}`
-  );
-  const users = await res.json();
-  return users[0] || null;
-};
+const LOCAL_USER_KEY = "localUsers";
+const SESSION_KEY = "userSession";
 
-export const getUser = async (id) => {
-  if (USE_LOCAL) {
-    const users = JSON.parse(localStorage.getItem("users") || "[]");
-    return users.find((u) => u.id === id) || null;
+const loadAllUsers = async () => {
+  if (USE_LOCAL_DB) {
+    return JSON.parse(localStorage.getItem(LOCAL_USER_KEY) || "[]");
   }
-  const res = await fetch(`${API_BASE}/users/${id}`);
+  const res = await fetch(`${API_BASE}/users`);
   return await res.json();
 };
 
-export const registerUser = async (user) => {
-  if (USE_LOCAL) {
-    const users = JSON.parse(localStorage.getItem("users") || "[]");
-    const newUser = { ...user, id: Date.now() };
+const saveAllUsers = (users) => {
+  if (USE_LOCAL_DB) {
+    localStorage.setItem(LOCAL_USER_KEY, JSON.stringify(users));
+  }
+};
+
+export const findUserByCredentials = async (phone, password) => {
+  const users = await loadAllUsers();
+  return (
+    users.find((u) => u.phone === phone && u.password === password) || null
+  );
+};
+
+export const getUserById = async (id) => {
+  const users = await loadAllUsers();
+  return users.find((u) => u.id === id) || null;
+};
+
+export const registerUser = async (userData) => {
+  const newUser = {
+    ...userData,
+    id: USE_LOCAL_DB ? Date.now() : undefined,
+  };
+
+  if (USE_LOCAL_DB) {
+    const users = await loadAllUsers();
     users.push(newUser);
-    localStorage.setItem("users", JSON.stringify(users));
+    saveAllUsers(users);
     return newUser;
   }
+
   const res = await fetch(`${API_BASE}/users`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(user),
+    body: JSON.stringify(newUser),
   });
   return await res.json();
 };
 
-export const updateUser = async (id, patchData) => {
-  if (USE_LOCAL) {
-    const users = JSON.parse(localStorage.getItem("users") || "[]");
+export const updateUserById = async (id, patchData) => {
+  if (USE_LOCAL_DB) {
+    const users = await loadAllUsers();
     const index = users.findIndex((u) => u.id === id);
-    if (index >= 0) {
+    if (index !== -1) {
       users[index] = { ...users[index], ...patchData };
-      localStorage.setItem("users", JSON.stringify(users));
+      saveAllUsers(users);
       return users[index];
     }
     return null;
   }
+
   const res = await fetch(`${API_BASE}/users/${id}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
@@ -62,15 +73,33 @@ export const updateUser = async (id, patchData) => {
   return await res.json();
 };
 
-export const deleteUser = async (id) => {
-  if (USE_LOCAL) {
-    const users = JSON.parse(localStorage.getItem("users") || "[]");
-    const filtered = users.filter((u) => u.id !== id);
-    localStorage.setItem("users", JSON.stringify(filtered));
+export const deleteUserById = async (id) => {
+  if (USE_LOCAL_DB) {
+    const users = await loadAllUsers();
+    const updated = users.filter((u) => u.id !== id);
+    saveAllUsers(updated);
     return { deleted: true };
   }
+
   const res = await fetch(`${API_BASE}/users/${id}`, {
     method: "DELETE",
   });
   return await res.json();
+};
+
+export const cacheUserSession = (user) => {
+  const sessionData = { id: user.id, phone: user.phone };
+  localStorage.setItem(SESSION_KEY, JSON.stringify(sessionData));
+};
+
+export const loadUserSession = () => {
+  try {
+    return JSON.parse(localStorage.getItem(SESSION_KEY));
+  } catch {
+    return null;
+  }
+};
+
+export const clearUserSession = () => {
+  localStorage.removeItem(SESSION_KEY);
 };

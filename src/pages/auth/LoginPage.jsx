@@ -1,14 +1,19 @@
 // File: src/pages/auth/LoginPage.jsx
 
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { saveUser } from "../../utils/userService";
+import { useNavigate, useLocation } from "react-router-dom";
+import {
+  registerUser,
+  findUserByCredentials,
+  cacheUserSession,
+} from "../../api/userService";
 import "../../styles/layout/loginPage.scss";
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const redirectTo = location.state?.from || "/profile";
   const [mode, setMode] = useState("login");
-
   const [formData, setFormData] = useState({
     phone: "",
     password: "",
@@ -19,7 +24,6 @@ const LoginPage = () => {
     city: "",
     postalCode: "",
   });
-
   const [errors, setErrors] = useState({});
   const [feedback, setFeedback] = useState("");
   const [submitting, setSubmitting] = useState(false);
@@ -50,6 +54,7 @@ const LoginPage = () => {
   const validate = () => {
     const errs = {};
     const phone = formData.phone.trim();
+
     const phoneValid =
       phone === "user" ||
       /^\+\d{6,15}$/.test(phone.replace(/\s|-/g, "")) ||
@@ -57,6 +62,10 @@ const LoginPage = () => {
 
     if (!phoneValid) {
       errs.phone = "Use +4670XXXXXXX or 070-XXX XX XX format.";
+    }
+
+    if (!formData.password || formData.password.length < 4) {
+      errs.password = "Password must be at least 4 characters.";
     }
 
     if (mode === "register") {
@@ -68,40 +77,38 @@ const LoginPage = () => {
       }
     }
 
-    if (!formData.password || formData.password.length < 4) {
-      errs.password = "Password must be at least 4 characters.";
-    }
-
-    if (mode === "register") {
-      if (formData.password !== formData.confirmPassword) {
-        errs.confirmPassword = "Passwords do not match.";
-      }
-    }
-
     setErrors(errs);
     return Object.keys(errs).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
 
     setSubmitting(true);
 
-    setTimeout(() => {
+    try {
       if (mode === "login") {
-        if (formData.phone === "+46700000000" && formData.password === "1234") {
-          saveUser({ phone: formData.phone });
-          navigate("/checkout");
+        const user = await findUserByCredentials(
+          formData.phone,
+          formData.password
+        );
+        if (!user) {
+          setFeedback("Incorrect phone number or password.");
         } else {
-          setFeedback("Incorrect phone or password.");
-          setSubmitting(false);
+          cacheUserSession(user);
+          navigate(redirectTo);
         }
       } else {
-        saveUser({ ...formData });
-        navigate("/checkout");
+        const newUser = await registerUser(formData);
+        cacheUserSession(newUser);
+        navigate(redirectTo);
       }
-    }, 800);
+    } catch (err) {
+      setFeedback("Something went wrong. Please try again. " + err.message);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -175,6 +182,7 @@ const LoginPage = () => {
                       onChange={handleChange}
                     />
                   </div>
+
                   <div className="form-group">
                     <label>Apartment / Floor</label>
                     <input
@@ -183,6 +191,7 @@ const LoginPage = () => {
                       onChange={handleChange}
                     />
                   </div>
+
                   <div className="row">
                     <div className="form-group">
                       <label>City</label>
