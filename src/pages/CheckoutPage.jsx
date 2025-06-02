@@ -113,6 +113,11 @@ const CheckoutPage = () => {
   };
 
   const handlePurchase = async () => {
+    if (cartItems.length === 0) {
+      console.warn("Attempted to submit an empty cart.");
+      return;
+    }
+
     setAttemptedSubmit(true);
     if (!validate()) {
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -358,7 +363,11 @@ const CheckoutPage = () => {
             </strong>
           </div>
 
-          <button className="btn btn-primary mt-3" onClick={handlePurchase}>
+          <button
+            className="btn btn-primary mt-3"
+            onClick={handlePurchase}
+            disabled={cartItems.length === 0}
+          >
             {t("checkout.placeOrder")}
           </button>
         </div>
