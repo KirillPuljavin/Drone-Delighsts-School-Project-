@@ -59,7 +59,8 @@
     "removeItem": "Ta bort objekt",
     "clearCart": "Töm kundvagn",
     "totalLabel": "Totalt",
-    "proceedToCheckout": "Fortsätt till kassan"
+    "proceedToCheckout": "Fortsätt till kassan",
+    "goToMenu": "Handla i menyn"
   },
   "checkout": {
     "accountTitle": "Ditt konto",

@@ -59,7 +59,8 @@
     "removeItem": "Remove item",
     "clearCart": "Clear Cart",
     "totalLabel": "Total",
-    "proceedToCheckout": "Proceed to Checkout"
+    "proceedToCheckout": "Proceed to Checkout",
+    "goToMenu": "Browse the Menu"
   },
   "checkout": {
     "accountTitle": "Your Account",
