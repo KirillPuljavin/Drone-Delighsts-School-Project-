@@ -2,10 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { getOrderByUUID } from "../api/orderService";
 import "../styles/layout/confirmationPage.scss";
 
 const ConfirmationPage = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { state } = useLocation();
   const uuid = state?.uuid;
@@ -48,14 +50,14 @@ const ConfirmationPage = () => {
     <main className="confirmation-page">
       <div className="container">
         <div className="confirmation-box">
-          <h1>Thank You for Your Order!</h1>
-          <p>Your order has been successfully placed.</p>
+          <h1>{t("confirmation.thankYouTitle")}</h1>
+          <p>{t("confirmation.successMessage")}</p>
           <p className="order-id">
-            Order ID: <strong>{orderUUID}</strong>
+            {t("confirmation.orderIdLabel")} <strong>{orderUUID}</strong>
           </p>
 
           <section className="summary-section">
-            <h2>Shipping Information</h2>
+            <h2>{t("confirmation.shippingTitle")}</h2>
             <p>{fullName}</p>
             <p>
               {streetAddress}
@@ -64,12 +66,18 @@ const ConfirmationPage = () => {
             <p>
               {postalCode} {city}
             </p>
-            <p>Phone: {phone}</p>
-            {deliveryNote && <p>Note: {deliveryNote}</p>}
+            <p>
+              {t("confirmation.phoneLabel")}: {phone}
+            </p>
+            {deliveryNote && (
+              <p>
+                {t("confirmation.noteLabel")}: {deliveryNote}
+              </p>
+            )}
           </section>
 
           <section className="summary-section">
-            <h2>Order Details</h2>
+            <h2>{t("confirmation.orderDetailsTitle")}</h2>
             <ul className="item-list">
               {items.map((item) => (
                 <li key={item.id}>
@@ -79,30 +87,34 @@ const ConfirmationPage = () => {
               ))}
             </ul>
             <p className="total">
-              <strong>Total:</strong> {totalPrice} SEK
+              <strong>{t("confirmation.totalLabel")}:</strong> {totalPrice} SEK
             </p>
           </section>
 
           <section className="summary-section">
-            <h2>Payment Method</h2>
+            <h2>{t("confirmation.paymentMethodTitle")}</h2>
             {paymentMethod === "card" ? (
-              <>
-                <p>Card ending in ****{paymentDetails.cardNumber.slice(-4)}</p>
-              </>
+              <p>
+                {t("confirmation.cardEndingLabel", {
+                  last4: paymentDetails.cardNumber.slice(-4),
+                })}
+              </p>
             ) : (
-              <p>Swish Phone: {paymentDetails.swishPhone}</p>
+              <p>
+                {t("confirmation.swishPhoneLabel")}: {paymentDetails.swishPhone}
+              </p>
             )}
           </section>
 
           <div className="actions">
             <button className="btn btn-primary" onClick={() => navigate("/")}>
-              Go to Home
+              {t("confirmation.goHome")}
             </button>
             <button
               className="btn btn-secondary"
               onClick={() => navigate("/profile")}
             >
-              View My Orders
+              {t("confirmation.viewOrders")}
             </button>
           </div>
         </div>

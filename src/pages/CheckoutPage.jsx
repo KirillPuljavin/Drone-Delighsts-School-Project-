@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { getCart, clearCart } from "../utils/cartService";
 import "./../styles/layout/checkoutPage.scss";
 import {
@@ -24,6 +25,7 @@ import {
 } from "../utils/validationService";
 
 const CheckoutPage = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [cartItems, setCartItems] = useState([]);
@@ -86,23 +88,22 @@ const CheckoutPage = () => {
   const validate = () => {
     const newErrors = {};
 
-    newErrors.fullName = validateFullName(formData.fullName);
-    newErrors.streetAddress = validateStreetAddress(formData.streetAddress);
-    newErrors.city = validateCity(formData.city);
-    newErrors.postalCode = validatePostalCode(formData.postalCode);
-    newErrors.phone = validatePhoneNumber(formData.phone);
+    newErrors.fullName = validateFullName(formData.fullName, t);
+    newErrors.streetAddress = validateStreetAddress(formData.streetAddress, t);
+    newErrors.city = validateCity(formData.city, t);
+    newErrors.postalCode = validatePostalCode(formData.postalCode, t);
+    newErrors.phone = validatePhoneNumber(formData.phone, t);
 
     if (paymentMethod === "card") {
-      newErrors.cardNumber = validateCardNumber(formData.cardNumber);
-      newErrors.expiryDate = validateExpiryDate(formData.expiryDate);
-      newErrors.cvv = validateCVV(formData.cvv);
+      newErrors.cardNumber = validateCardNumber(formData.cardNumber, t);
+      newErrors.expiryDate = validateExpiryDate(formData.expiryDate, t);
+      newErrors.cvv = validateCVV(formData.cvv, t);
     }
 
     if (paymentMethod === "swish") {
-      newErrors.swishPhone = validateSwishPhone(formData.swishPhone);
+      newErrors.swishPhone = validateSwishPhone(formData.swishPhone, t);
     }
 
-    // Prune nulls
     Object.keys(newErrors).forEach((key) => {
       if (newErrors[key] == null) delete newErrors[key];
     });
@@ -162,22 +163,23 @@ const CheckoutPage = () => {
     <main className="checkout-page">
       <div className="container checkout-layout">
         <div className="checkout-form">
-          <h2>Your Account</h2>
+          <h2>{t("checkout.accountTitle")}</h2>
           <div className="user-session">
             <p>
-              Logged in as: <strong>{user?.fullName || user?.phone}</strong>
+              {t("checkout.loggedInAs")}:{" "}
+              <strong>{user?.fullName || user?.phone}</strong>
             </p>
             <button
               className="btn btn-secondary logout-btn"
               onClick={handleLogout}
             >
-              Logout
+              {t("checkout.logout")}
             </button>
           </div>
 
-          <h2>Delivery Address</h2>
+          <h2>{t("checkout.deliveryAddressTitle")}</h2>
           <div className={`form-group ${errors.fullName ? "has-error" : ""}`}>
-            <label>Full Name</label>
+            <label>{t("checkout.fullName")}</label>
             <input
               name="fullName"
               value={formData.fullName}
@@ -189,7 +191,7 @@ const CheckoutPage = () => {
           <div
             className={`form-group ${errors.streetAddress ? "has-error" : ""}`}
           >
-            <label>Street Address</label>
+            <label>{t("checkout.streetAddress")}</label>
             <input
               name="streetAddress"
               value={formData.streetAddress}
@@ -199,7 +201,7 @@ const CheckoutPage = () => {
           </div>
 
           <div className="form-group">
-            <label>Apartment / Floor (optional)</label>
+            <label>{t("checkout.apartmentLabel")}</label>
             <input
               name="apartment"
               value={formData.apartment}
@@ -209,7 +211,7 @@ const CheckoutPage = () => {
 
           <div className="row">
             <div className={`form-group ${errors.city ? "has-error" : ""}`}>
-              <label>City</label>
+              <label>{t("checkout.city")}</label>
               <input
                 name="city"
                 value={formData.city}
@@ -221,7 +223,7 @@ const CheckoutPage = () => {
             <div
               className={`form-group ${errors.postalCode ? "has-error" : ""}`}
             >
-              <label>Postal Code</label>
+              <label>{t("checkout.postalCode")}</label>
               <input
                 name="postalCode"
                 value={formData.postalCode}
@@ -232,7 +234,7 @@ const CheckoutPage = () => {
           </div>
 
           <div className={`form-group ${errors.phone ? "has-error" : ""}`}>
-            <label>Phone Number</label>
+            <label>{t("checkout.phoneNumber")}</label>
             <input
               name="phone"
               value={formData.phone}
@@ -241,9 +243,9 @@ const CheckoutPage = () => {
             <span className="form-error">{errors.phone}</span>
           </div>
 
-          <h2>Delivery Instructions</h2>
+          <h2>{t("checkout.deliveryInstructions")}</h2>
           <div className="form-group">
-            <label>Notes (optional)</label>
+            <label>{t("checkout.notes")}</label>
             <textarea
               name="deliveryNote"
               value={formData.deliveryNote}
@@ -251,9 +253,9 @@ const CheckoutPage = () => {
             />
           </div>
 
-          <h2>Payment Method</h2>
+          <h2>{t("checkout.paymentMethodTitle")}</h2>
           <div className="form-group">
-            <label>Choose Payment</label>
+            <label>{t("checkout.choosePayment")}</label>
             <div className="payment-options">
               <label>
                 <input
@@ -263,7 +265,7 @@ const CheckoutPage = () => {
                   checked={paymentMethod === "card"}
                   onChange={() => setPaymentMethod("card")}
                 />
-                Card
+                {t("checkout.card")}
               </label>
               <label>
                 <input
@@ -273,7 +275,7 @@ const CheckoutPage = () => {
                   checked={paymentMethod === "swish"}
                   onChange={() => setPaymentMethod("swish")}
                 />
-                Swish
+                {t("checkout.swish")}
               </label>
             </div>
           </div>
@@ -283,7 +285,7 @@ const CheckoutPage = () => {
               <div
                 className={`form-group ${errors.cardNumber ? "has-error" : ""}`}
               >
-                <label>Card Number</label>
+                <label>{t("checkout.cardNumber")}</label>
                 <input
                   name="cardNumber"
                   type="text"
@@ -298,7 +300,7 @@ const CheckoutPage = () => {
               <div
                 className={`form-group ${errors.expiryDate ? "has-error" : ""}`}
               >
-                <label>Expiry Date (MM/YY)</label>
+                <label>{t("checkout.expiryDate")}</label>
                 <input
                   name="expiryDate"
                   type="text"
@@ -311,7 +313,7 @@ const CheckoutPage = () => {
                 <span className="form-error">{errors.expiryDate}</span>
               </div>
               <div className={`form-group ${errors.cvv ? "has-error" : ""}`}>
-                <label>CVV</label>
+                <label>{t("checkout.cvv")}</label>
                 <input
                   type="tel"
                   name="cvv"
@@ -321,7 +323,6 @@ const CheckoutPage = () => {
                   value={formData.cvv}
                   onChange={handleChange}
                 />
-
                 <span className="form-error">{errors.cvv}</span>
               </div>
             </>
@@ -331,7 +332,7 @@ const CheckoutPage = () => {
             <div
               className={`form-group ${errors.swishPhone ? "has-error" : ""}`}
             >
-              <label>Swish Phone Number</label>
+              <label>{t("checkout.swishPhone")}</label>
               <input
                 name="swishPhone"
                 value={formData.swishPhone}
@@ -343,7 +344,7 @@ const CheckoutPage = () => {
         </div>
 
         <div className="checkout-summary">
-          <h2>Order Summary</h2>
+          <h2>{t("checkout.orderSummaryTitle")}</h2>
           <ul>
             {cartItems.map((item) => (
               <li key={item.id}>
@@ -352,11 +353,13 @@ const CheckoutPage = () => {
             ))}
           </ul>
           <div className="total">
-            <strong>Total: {total} SEK</strong>
+            <strong>
+              {t("checkout.total")}: {total} SEK
+            </strong>
           </div>
 
           <button className="btn btn-primary mt-3" onClick={handlePurchase}>
-            Place Order
+            {t("checkout.placeOrder")}
           </button>
         </div>
       </div>

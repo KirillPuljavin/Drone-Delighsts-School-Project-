@@ -1,6 +1,7 @@
 // File: src/pages/MenuPage.jsx
 
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import "./../styles/layout/menuPage.scss";
 import {
   addToCart,
@@ -10,16 +11,10 @@ import {
 } from "../utils/cartService";
 import { getProducts } from "../api/productService";
 
-const sectionLabels = {
-  starter: "Starters",
-  main: "Main Courses",
-  drink: "Drinks",
-  dessert: "Desserts",
-};
-
 const categories = ["all", "starter", "main", "drink", "dessert", "favorites"];
 
 const MenuPage = () => {
+  const { t } = useTranslation();
   const [sortAsc, setSortAsc] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedItem, setSelectedItem] = useState(null);
@@ -63,7 +58,7 @@ const MenuPage = () => {
 
   const handleItemClick = (item) => {
     const cartEntry = cartItems.find((ci) => ci.id === item.id);
-    setQuantity(cartEntry ? cartEntry.quantity : 1); // default to 1 if not in cart
+    setQuantity(cartEntry ? cartEntry.quantity : 1);
     setSelectedItem(item);
   };
 
@@ -110,7 +105,7 @@ const MenuPage = () => {
               }`}
               onClick={() => setActiveCategory(cat)}
             >
-              {cat.charAt(0).toUpperCase() + cat.slice(1)}
+              {t(`menu.categories.${cat}`)}
             </button>
           ))}
         </div>
@@ -121,13 +116,13 @@ const MenuPage = () => {
           <button
             className="filter-toggle"
             onClick={() => setShowFilters((prev) => !prev)}
-            aria-label="Toggle filters"
+            aria-label={t("menu.toggleFilters")}
           >
             ☰
           </button>
           <input
             type="text"
-            placeholder="Search menu..."
+            placeholder={t("menu.searchPlaceholder")}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="menu-search"
@@ -135,7 +130,7 @@ const MenuPage = () => {
           <button
             className={`sort-toggle ${sortAsc ? "asc" : "desc"}`}
             onClick={() => setSortAsc(!sortAsc)}
-            aria-label="Sort toggle"
+            aria-label={t("menu.sortToggle")}
           >
             ▼
           </button>
@@ -144,7 +139,7 @@ const MenuPage = () => {
 
       <section className="menu-grid">
         <div className="container">
-          {Object.entries(sectionLabels).map(([key, label]) => {
+          {["starter", "main", "drink", "dessert"].map((key) => {
             if (
               activeCategory !== "all" &&
               activeCategory !== "favorites" &&
@@ -157,9 +152,9 @@ const MenuPage = () => {
             return (
               <div key={key} className="menu-section">
                 <hr />
-                <h2>{label}</h2>
+                <h2>{t(`menu.sectionLabels.${key}`)}</h2>
                 {items.length === 0 ? (
-                  <p className="no-items">No items to display here.</p>
+                  <p className="no-items">{t("menu.noItems")}</p>
                 ) : (
                   <div className="grid grid-auto grid-gap-md">
                     {items.map((item) => {
@@ -180,12 +175,15 @@ const MenuPage = () => {
                               e.stopPropagation();
                               toggleFavorite(item.id);
                             }}
-                            title="Toggle favorite"
+                            title={t("menu.toggleFavorite")}
                           >
                             ♥
                           </div>
                           {cartEntry && cartEntry.quantity > 0 && (
-                            <div className="cart-qty-badge" title="In cart">
+                            <div
+                              className="cart-qty-badge"
+                              title={t("menu.inCart")}
+                            >
                               {cartEntry.quantity}
                             </div>
                           )}
@@ -214,7 +212,7 @@ const MenuPage = () => {
                 favorites.includes(selectedItem.id) ? "liked" : ""
               }`}
               onClick={() => toggleFavorite(selectedItem.id)}
-              title="Toggle favorite"
+              title={t("menu.toggleFavorite")}
             >
               ♥
             </div>
@@ -247,8 +245,8 @@ const MenuPage = () => {
                 }}
               >
                 {quantity > 0
-                  ? `Set Quantity to ${quantity}`
-                  : "Remove from Cart"}
+                  ? t("menu.setQuantity", { count: quantity })
+                  : t("menu.removeFromCart")}
               </button>
             </div>
           </div>

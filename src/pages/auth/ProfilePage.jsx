@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import "../../styles/layout/profilePage.scss";
 import {
   loadUserSession,
@@ -21,6 +22,7 @@ import {
 } from "../../utils/validationService";
 
 const ProfilePage = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [orders, setOrders] = useState([]);
@@ -91,11 +93,11 @@ const ProfilePage = () => {
 
   const validateProfileForm = () => {
     const newErrors = {
-      fullName: validateFullName(formData.fullName),
-      streetAddress: validateStreetAddress(formData.streetAddress),
-      city: validateCity(formData.city),
-      postalCode: validatePostalCode(formData.postalCode),
-      phone: validatePhoneNumber(formData.phone),
+      fullName: validateFullName(formData.fullName, t),
+      streetAddress: validateStreetAddress(formData.streetAddress, t),
+      city: validateCity(formData.city, t),
+      postalCode: validatePostalCode(formData.postalCode, t),
+      phone: validatePhoneNumber(formData.phone, t),
     };
 
     Object.keys(newErrors).forEach((key) => {
@@ -108,11 +110,12 @@ const ProfilePage = () => {
 
   const validatePasswordForm = () => {
     const newErrors = {
-      currentPassword: validatePassword(passwordData.currentPassword),
-      newPassword: validatePassword(passwordData.newPassword),
+      currentPassword: validatePassword(passwordData.currentPassword, t),
+      newPassword: validatePassword(passwordData.newPassword, t),
       confirmNewPassword: validatePasswordMatch(
         passwordData.newPassword,
-        passwordData.confirmNewPassword
+        passwordData.confirmNewPassword,
+        t
       ),
     };
 
@@ -132,10 +135,10 @@ const ProfilePage = () => {
     updateUserById(updatedUser).then((res) => {
       if (res) {
         setUser(updatedUser);
-        alert("Profile updated successfully.");
+        alert(t("profile.profileUpdated"));
         setErrors({});
       } else {
-        alert("Failed to update profile.");
+        alert(t("profile.updateFailed"));
       }
     });
   };
@@ -143,7 +146,7 @@ const ProfilePage = () => {
   const handleSavePassword = () => {
     if (!validatePasswordForm()) return;
 
-    alert("Password change logic would go here (not yet wired to backend).");
+    alert(t("profile.passwordChangePlaceholder"));
     setPasswordErrors({});
   };
 
@@ -152,10 +155,10 @@ const ProfilePage = () => {
       <div className="container profile-layout">
         <div className="profile-form">
           <h5 className="user-info">
-            Logged in as: <strong>{user?.fullName}</strong>
+            {t("profile.loggedInAs")}: <strong>{user?.fullName}</strong>
           </h5>
           <button className="btn btn-secondary" onClick={handleLogout}>
-            Logout
+            {t("profile.logout")}
           </button>
 
           <form
@@ -165,10 +168,10 @@ const ProfilePage = () => {
               handleSaveProfile();
             }}
           >
-            <h3>Change Details</h3>
+            <h3>{t("profile.changeDetailsTitle")}</h3>
 
             <div className={`form-group ${errors.fullName ? "has-error" : ""}`}>
-              <label>Full Name</label>
+              <label>{t("profile.fullName")}</label>
               <input
                 name="fullName"
                 value={formData.fullName}
@@ -182,7 +185,7 @@ const ProfilePage = () => {
                 errors.streetAddress ? "has-error" : ""
               }`}
             >
-              <label>Street Address</label>
+              <label>{t("profile.streetAddress")}</label>
               <input
                 name="streetAddress"
                 value={formData.streetAddress}
@@ -192,7 +195,7 @@ const ProfilePage = () => {
             </div>
 
             <div className="form-group">
-              <label>Apartment / Floor (optional)</label>
+              <label>{t("profile.apartment")}</label>
               <input
                 name="apartment"
                 value={formData.apartment}
@@ -202,7 +205,7 @@ const ProfilePage = () => {
 
             <div className="row">
               <div className={`form-group ${errors.city ? "has-error" : ""}`}>
-                <label>City</label>
+                <label>{t("profile.city")}</label>
                 <input
                   name="city"
                   value={formData.city}
@@ -214,7 +217,7 @@ const ProfilePage = () => {
               <div
                 className={`form-group ${errors.postalCode ? "has-error" : ""}`}
               >
-                <label>Postal Code</label>
+                <label>{t("profile.postalCode")}</label>
                 <input
                   name="postalCode"
                   value={formData.postalCode}
@@ -225,7 +228,7 @@ const ProfilePage = () => {
             </div>
 
             <div className={`form-group ${errors.phone ? "has-error" : ""}`}>
-              <label>Phone Number</label>
+              <label>{t("profile.phoneNumber")}</label>
               <input
                 name="phone"
                 value={formData.phone}
@@ -235,7 +238,7 @@ const ProfilePage = () => {
             </div>
 
             <button className="btn btn-primary mt-3" type="submit">
-              Save Changes
+              {t("profile.saveChanges")}
             </button>
           </form>
 
@@ -246,14 +249,14 @@ const ProfilePage = () => {
               handleSavePassword();
             }}
           >
-            <h3>Change Password</h3>
+            <h3>{t("profile.changePasswordTitle")}</h3>
 
             <div
               className={`form-group ${
                 passwordErrors.currentPassword ? "has-error" : ""
               }`}
             >
-              <label>Current Password</label>
+              <label>{t("profile.currentPassword")}</label>
               <input
                 type="password"
                 name="currentPassword"
@@ -271,7 +274,7 @@ const ProfilePage = () => {
                 passwordErrors.newPassword ? "has-error" : ""
               }`}
             >
-              <label>New Password</label>
+              <label>{t("profile.newPassword")}</label>
               <input
                 type="password"
                 name="newPassword"
@@ -287,7 +290,7 @@ const ProfilePage = () => {
                 passwordErrors.confirmNewPassword ? "has-error" : ""
               }`}
             >
-              <label>Confirm New Password</label>
+              <label>{t("profile.confirmNewPassword")}</label>
               <input
                 type="password"
                 name="confirmNewPassword"
@@ -301,7 +304,7 @@ const ProfilePage = () => {
             </div>
 
             <button className="btn btn-primary mt-3" type="submit">
-              Save Password
+              {t("profile.savePassword")}
             </button>
           </form>
 
@@ -309,14 +312,16 @@ const ProfilePage = () => {
             className="toggle-orders mt-5"
             onClick={() => setShowOrders(!showOrders)}
           >
-            {showOrders ? "Hide Order History" : "Show Order History"}
+            {showOrders
+              ? t("profile.hideOrderHistory")
+              : t("profile.showOrderHistory")}
           </button>
 
           {showOrders && (
             <div className="order-history">
-              <h3>Your Orders</h3>
+              <h3>{t("profile.yourOrders")}</h3>
               {orders.length === 0 ? (
-                <p className="text-muted">You haven’t placed any orders yet.</p>
+                <p className="text-muted">{t("profile.noOrders")}</p>
               ) : (
                 <div className="orders-list">
                   {orders
@@ -327,10 +332,11 @@ const ProfilePage = () => {
                       <div key={order.uuid} className="order-entry">
                         <div className="order-header">
                           <div>
-                            <strong>Order ID:</strong> {order.uuid}
+                            <strong>{t("profile.orderId")}:</strong>{" "}
+                            {order.uuid}
                           </div>
                           <div>
-                            <strong>Date:</strong>{" "}
+                            <strong>{t("profile.date")}:</strong>{" "}
                             {new Date(order.createdAt).toLocaleDateString()}
                           </div>
                         </div>
@@ -344,10 +350,12 @@ const ProfilePage = () => {
                         </div>
                         <div className="order-footer">
                           <div>
-                            <strong>Total:</strong> {order.totalPrice} SEK
+                            <strong>{t("profile.total")}:</strong>{" "}
+                            {order.totalPrice} SEK
                           </div>
                           <div>
-                            <strong>Payment:</strong> {order.paymentMethod}
+                            <strong>{t("profile.payment")}:</strong>{" "}
+                            {order.paymentMethod}
                           </div>
                         </div>
                       </div>
