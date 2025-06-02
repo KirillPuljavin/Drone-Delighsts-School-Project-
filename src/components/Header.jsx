@@ -2,13 +2,16 @@
 
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import logo from "../assets/logo.png";
 import { getCart } from "../utils/cartService";
 
 const Header = () => {
+  const { t, i18n } = useTranslation();
   const location = useLocation();
   const [cartCount, setCartCount] = useState(0);
   const [animate, setAnimate] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const prevCount = useRef(0);
 
   useEffect(() => {
@@ -30,20 +33,31 @@ const Header = () => {
     return () => clearInterval(interval);
   }, [location]);
 
+  const handleLanguageChange = (lang) => {
+    i18n.changeLanguage(lang);
+    setDropdownOpen(false);
+  };
+
+  const currentLanguage = i18n.language;
+
   return (
     <header className="site-header">
       <div className="header-inner">
         <Link to="/" className="header-logo">
-          <img src={logo} alt="Drone Delights" />
-          <span>Drone Delights</span>
+          <img src={logo} alt={t("header.logoAlt")} />
+          <span>{t("header.title")}</span>
         </Link>
 
         <nav className="header-actions">
           <Link to="/menu" className="nav-link">
-            Menu
+            {t("header.menu")}
           </Link>
 
-          <Link to="/cart" className="icon-link cart" aria-label="View Cart">
+          <Link
+            to="/cart"
+            className="icon-link cart"
+            aria-label={t("header.viewCartAria")}
+          >
             <svg
               className={`icon ${animate ? "pulse" : ""}`}
               fill="none"
@@ -62,7 +76,7 @@ const Header = () => {
           <Link
             to="/profile"
             className="icon-link profile"
-            aria-label="Profile"
+            aria-label={t("header.profileAria")}
           >
             <svg
               className="icon"
@@ -76,6 +90,33 @@ const Header = () => {
               <path d="M4 20c0-4 4-7 8-7s8 3 8 7" />
             </svg>
           </Link>
+
+          {/* Language Dropdown */}
+          <div
+            className="language-dropdown"
+            onMouseEnter={() => setDropdownOpen(true)}
+            onMouseLeave={() => setDropdownOpen(false)}
+          >
+            <button className="dropdown-toggle" aria-label="Language Selector">
+              {currentLanguage.toUpperCase()} ▾
+            </button>
+            {dropdownOpen && (
+              <ul className="dropdown-menu">
+                <li
+                  className={currentLanguage === "en" ? "active" : ""}
+                  onClick={() => handleLanguageChange("en")}
+                >
+                  English
+                </li>
+                <li
+                  className={currentLanguage === "sv" ? "active" : ""}
+                  onClick={() => handleLanguageChange("sv")}
+                >
+                  Svenska
+                </li>
+              </ul>
+            )}
+          </div>
         </nav>
       </div>
 
@@ -120,7 +161,7 @@ const Header = () => {
         .header-actions {
           display: flex;
           align-items: center;
-          gap: 2rem;
+          gap: 1rem;
         }
 
         .nav-link {
@@ -179,6 +220,57 @@ const Header = () => {
           line-height: 1;
           min-width: 20px;
           text-align: center;
+        }
+
+        .language-dropdown {
+          position: relative;
+        }
+
+        .dropdown-toggle {
+          background: none;
+          border: none;
+          font-size: 0.9rem;
+          font-weight: 600;
+          color: var(--color-text);
+          cursor: pointer;
+          padding: 0.25rem 0.5rem;
+          border-radius: 0.25rem;
+          transition: background 0.2s ease;
+        }
+
+        .dropdown-toggle:hover {
+          background: var(--color-primary-light);
+        }
+
+        .dropdown-menu {
+          position: absolute;
+          top: 1.5rem;
+          right: 0;
+          background: var(--color-surface);
+          box-shadow: var(--shadow-sm);
+          border-radius: 0.25rem;
+          list-style: none;
+          margin: 0;
+          padding: 0.5rem 0;
+          z-index: 200;
+        }
+
+        .dropdown-menu li {
+          padding: 0.5rem 1rem;
+          cursor: pointer;
+          font-size: 0.9rem;
+          color: var(--color-text);
+          white-space: nowrap;
+        }
+
+        .dropdown-menu li:hover {
+          background: var(--color-primary-light);
+        }
+
+        .dropdown-menu li.active {
+          font-weight: 700;
+          background: var(--color-primary);
+          color: var(--color-white);
         }
 
         @media (max-width: 768px) {

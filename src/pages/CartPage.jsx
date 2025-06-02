@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import {
   getCart,
   updateQuantity,
@@ -11,6 +12,7 @@ import {
 import "./../styles/layout/cartPage.scss";
 
 const CartPage = () => {
+  const { t } = useTranslation();
   const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
@@ -43,10 +45,10 @@ const CartPage = () => {
     <main className="cart-page">
       <section className="cart-section">
         <div className="container">
-          <h1 className="cart-title">In Cart</h1>
+          <h1 className="cart-title">{t("cart.inCartTitle")}</h1>
 
           {cartItems.length === 0 ? (
-            <p className="text-muted">Your cart is empty.</p>
+            <p className="text-muted">{t("cart.emptyMessage")}</p>
           ) : (
             <>
               <ul className="cart-list">
@@ -62,12 +64,14 @@ const CartPage = () => {
                       <div className="qty-controls">
                         <button
                           onClick={() => handleQuantityChange(item.id, -1)}
+                          aria-label={t("cart.decreaseQuantity")}
                         >
                           -
                         </button>
                         <span>{item.quantity}</span>
                         <button
                           onClick={() => handleQuantityChange(item.id, 1)}
+                          aria-label={t("cart.increaseQuantity")}
                         >
                           +
                         </button>
@@ -79,7 +83,7 @@ const CartPage = () => {
                     <button
                       onClick={() => handleRemove(item.id)}
                       className="remove-item"
-                      aria-label="Remove item"
+                      aria-label={t("cart.removeItem")}
                     >
                       ✕
                     </button>
@@ -90,18 +94,18 @@ const CartPage = () => {
                 className="btn btn-outline w-full mt-2"
                 onClick={handleClearCart}
               >
-                Clear Cart
+                {t("cart.clearCart")}
               </button>
 
               <div className="cart-summary">
                 <div className="total-line">
-                  <span>Total</span>
+                  <span>{t("cart.totalLabel")}</span>
                   <strong>{total} kr</strong>
                 </div>
 
                 <Link to="/checkout">
                   <button className="btn btn-primary w-full mt-3">
-                    Proceed to Checkout
+                    {t("cart.proceedToCheckout")}
                   </button>
                 </Link>
               </div>

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import "../../styles/layout/loginPage.scss";
 import {
   registerUser,
@@ -16,6 +17,7 @@ import {
 } from "../../utils/validationService";
 
 const LoginPage = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
   const redirectTo = location.state?.from || "/profile";
@@ -59,18 +61,20 @@ const LoginPage = () => {
 
   const validate = () => {
     const errs = {};
-    errs.phone = validatePhoneNumber(formData.phone, { allowMockUser: true });
-    errs.password = validatePassword(formData.password, 4);
+    errs.phone = validatePhoneNumber(formData.phone, t, {
+      allowMockUser: true,
+    });
+    errs.password = validatePassword(formData.password, t, 4);
 
     if (mode === "register") {
       errs.confirmPassword = validatePasswordMatch(
         formData.password,
-        formData.confirmPassword
+        formData.confirmPassword,
+        t
       );
-      errs.fullName = validateFullName(formData.fullName);
+      errs.fullName = validateFullName(formData.fullName, t);
     }
 
-    // Remove nulls
     Object.keys(errs).forEach((key) => {
       if (errs[key] == null) delete errs[key];
     });
@@ -91,7 +95,7 @@ const LoginPage = () => {
           formData.password
         );
         if (!user) {
-          setFeedback("Incorrect phone number or password.");
+          setFeedback(t("auth.invalidCredentials"));
         } else {
           cacheUserSession(user);
           navigate(redirectTo);
@@ -102,7 +106,7 @@ const LoginPage = () => {
         navigate(redirectTo);
       }
     } catch (err) {
-      setFeedback("Something went wrong. Please try again. " + err.message);
+      setFeedback(t("auth.genericError") + " " + err.message);
     } finally {
       setSubmitting(false);
     }
@@ -113,12 +117,12 @@ const LoginPage = () => {
       <section className="login-section">
         <div className="container">
           <h1 className="login-title">
-            {mode === "login" ? "Login" : "Create Account"}
+            {mode === "login" ? t("auth.loginTitle") : t("auth.registerTitle")}
           </h1>
           <div className="login-box">
             <form onSubmit={handleSubmit}>
               <div className={`form-group ${errors.phone ? "has-error" : ""}`}>
-                <label>Phone Number *</label>
+                <label>{t("auth.phoneLabel")} *</label>
                 <input
                   name="phone"
                   value={formData.phone}
@@ -130,7 +134,7 @@ const LoginPage = () => {
               <div
                 className={`form-group ${errors.password ? "has-error" : ""}`}
               >
-                <label>Password *</label>
+                <label>{t("auth.passwordLabel")} *</label>
                 <input
                   name="password"
                   type="password"
@@ -147,7 +151,7 @@ const LoginPage = () => {
                       errors.confirmPassword ? "has-error" : ""
                     }`}
                   >
-                    <label>Confirm Password *</label>
+                    <label>{t("auth.confirmPasswordLabel")} *</label>
                     <input
                       name="confirmPassword"
                       type="password"
@@ -162,7 +166,7 @@ const LoginPage = () => {
                       errors.fullName ? "has-error" : ""
                     }`}
                   >
-                    <label>Full Name *</label>
+                    <label>{t("auth.fullNameLabel")} *</label>
                     <input
                       name="fullName"
                       value={formData.fullName}
@@ -172,7 +176,7 @@ const LoginPage = () => {
                   </div>
 
                   <div className="form-group">
-                    <label>Street Address</label>
+                    <label>{t("auth.streetAddressLabel")}</label>
                     <input
                       name="streetAddress"
                       value={formData.streetAddress}
@@ -181,7 +185,7 @@ const LoginPage = () => {
                   </div>
 
                   <div className="form-group">
-                    <label>Apartment / Floor</label>
+                    <label>{t("auth.apartmentLabel")}</label>
                     <input
                       name="apartment"
                       value={formData.apartment}
@@ -191,7 +195,7 @@ const LoginPage = () => {
 
                   <div className="row">
                     <div className="form-group">
-                      <label>City</label>
+                      <label>{t("auth.cityLabel")}</label>
                       <input
                         name="city"
                         value={formData.city}
@@ -199,7 +203,7 @@ const LoginPage = () => {
                       />
                     </div>
                     <div className="form-group">
-                      <label>Postal Code</label>
+                      <label>{t("auth.postalCodeLabel")}</label>
                       <input
                         name="postalCode"
                         value={formData.postalCode}
@@ -221,35 +225,35 @@ const LoginPage = () => {
               >
                 {submitting
                   ? mode === "login"
-                    ? "Logging in..."
-                    : "Creating..."
+                    ? t("auth.loggingIn")
+                    : t("auth.creating")
                   : mode === "login"
-                  ? "Login"
-                  : "Create Account"}
+                  ? t("auth.loginButton")
+                  : t("auth.createAccountButton")}
               </button>
             </form>
 
             <div className="text-center mt-4">
               {mode === "login" ? (
                 <p className="text-muted">
-                  No account?{" "}
+                  {t("auth.noAccount")}{" "}
                   <button
                     type="button"
                     className="btn btn-outline"
                     onClick={toggleMode}
                   >
-                    Create one
+                    {t("auth.createOne")}
                   </button>
                 </p>
               ) : (
                 <p className="text-muted">
-                  Already registered?{" "}
+                  {t("auth.alreadyRegistered")}{" "}
                   <button
                     type="button"
                     className="btn btn-outline"
                     onClick={toggleMode}
                   >
-                    Login here
+                    {t("auth.loginHere")}
                   </button>
                 </p>
               )}

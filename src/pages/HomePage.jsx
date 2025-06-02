@@ -5,11 +5,13 @@ import Slider from "react-slick";
 import "./../styles/layout/homePage.scss";
 import { useEffect, useState } from "react";
 import { getProducts } from "../api/productService";
+import { useTranslation } from "react-i18next";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const HomePage = () => {
+  const { t } = useTranslation();
   const [trending, setTrending] = useState([]);
 
   useEffect(() => {
@@ -57,10 +59,10 @@ const HomePage = () => {
         <div className="container">
           <h1>Drone Delights</h1>
           <p className="subtitle">
-            <strong>Fast Food, Delivered Faster</strong>
+            <strong>{t("home.heroSubtitle")}</strong>
           </p>
           <Link className="btn btn-primary" to="/menu">
-            View Menu
+            {t("home.viewMenu")}
           </Link>
         </div>
       </section>
@@ -68,33 +70,23 @@ const HomePage = () => {
       {/* Intro Explanation */}
       <section className="home-intro">
         <div className="container">
-          <h2>What do we mean by "faster"?</h2>
-          <p>
-            At Drone Delights, your cravings take flight—literally. Our
-            autonomous drones dispatch your order the moment it's prepared,
-            bypassing traffic, delays, and delivery middlemen. The result? Hot
-            meals airborne within minutes and on your table before your hunger
-            gets impatient.
-          </p>
+          <h2>{t("home.introTitle")}</h2>
+          <p>{t("home.introText")}</p>
         </div>
       </section>
 
       {/* Our Delivery */}
       <section className="home-delivery">
         <div className="container">
-          <h2>Our Delivery System</h2>
-          <p>
-            We're powered by an advanced drone fleet with real-time tracking,
-            adaptive routing, and ultra-fast delivery times. It's eco-conscious,
-            lightning-quick, and built to deliver happiness at altitude.
-          </p>
+          <h2>{t("home.deliveryTitle")}</h2>
+          <p>{t("home.deliveryText")}</p>
         </div>
       </section>
 
       {/* Trending Foods */}
       <section className="home-trending">
         <div className="container">
-          <h2>Trending Foods</h2>
+          <h2>{t("home.trendingTitle")}</h2>
 
           <div className="carousel-wrapper">
             <Slider {...sliderSettings}>
@@ -109,7 +101,7 @@ const HomePage = () => {
           </div>
 
           <Link className="btn btn-secondary" to="/menu">
-            Explore the Full Menu
+            {t("home.exploreFullMenu")}
           </Link>
         </div>
       </section>
@@ -117,25 +109,25 @@ const HomePage = () => {
       {/* Food Statistics */}
       <section className="home-stats">
         <div className="container">
-          <h2>Our Mission in Numbers</h2>
+          <h2>{t("home.statsTitle")}</h2>
           <div className="stats-grid">
             <div className="stat">
               <h3>
                 <strong>120+</strong>
               </h3>
-              <span>Menu Items</span>
+              <span>{t("home.menuItems")}</span>
             </div>
             <div className="stat">
               <h3>
                 <strong>58,000+</strong>
               </h3>
-              <span>Deliveries Completed</span>
+              <span>{t("home.deliveriesCompleted")}</span>
             </div>
             <div className="stat">
               <h3>
                 <strong>97%</strong>
               </h3>
-              <span>Customer Satisfaction</span>
+              <span>{t("home.customerSatisfaction")}</span>
             </div>
           </div>
         </div>
@@ -144,10 +136,10 @@ const HomePage = () => {
       {/* Final CTA */}
       <section className="home-cta">
         <div className="container">
-          <h2>Craving something now?</h2>
-          <p>Your next meal could be airborne in under 5 minutes.</p>
+          <h2>{t("home.ctaTitle")}</h2>
+          <p>{t("home.ctaText")}</p>
           <Link className="btn btn-primary" to="/menu">
-            Start Your Order
+            {t("home.startOrder")}
           </Link>
         </div>
       </section>
