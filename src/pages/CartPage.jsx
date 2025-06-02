@@ -48,7 +48,14 @@ const CartPage = () => {
           <h1 className="cart-title">{t("cart.inCartTitle")}</h1>
 
           {cartItems.length === 0 ? (
-            <p className="text-muted">{t("cart.emptyMessage")}</p>
+            <div className="empty-cart">
+              <p className="text-muted">{t("cart.emptyMessage")}</p>
+              <Link to="/menu">
+                <button className="btn btn-primary mt-2">
+                  {t("cart.goToMenu")}
+                </button>
+              </Link>
+            </div>
           ) : (
             <>
               <ul className="cart-list">

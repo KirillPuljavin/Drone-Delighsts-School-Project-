@@ -115,6 +115,7 @@ const CheckoutPage = () => {
   const handlePurchase = async () => {
     if (cartItems.length === 0) {
       console.warn("Attempted to submit an empty cart.");
+      navigate("/cart");
       return;
     }
 
@@ -363,11 +364,7 @@ const CheckoutPage = () => {
             </strong>
           </div>
 
-          <button
-            className="btn btn-primary mt-3"
-            onClick={handlePurchase}
-            disabled={cartItems.length === 0}
-          >
+          <button className="btn btn-primary mt-3" onClick={handlePurchase}>
             {t("checkout.placeOrder")}
           </button>
         </div>
