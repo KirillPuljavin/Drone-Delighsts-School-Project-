@@ -2,51 +2,51 @@
   "products": [
     {
       "id": 1,
-      "name": "Asian Crisps",
+      "name": "Asian Rice Crisps",
       "category": "starter",
       "price": 45,
       "image": "asian-crisps.png",
-      "description": "Light, crunchy rice crisps with a sesame kick—straight from the drone hatch."
+      "description": "Light, crispy rice crackers with a touch of sesame—delivered with precision."
     },
     {
       "id": 2,
-      "name": "Sky Burger",
+      "name": "Classic Burger",
       "category": "main",
       "price": 99,
       "image": "burger.png",
-      "description": "A towering burger launched by our finest drone chefs, grilled at altitude."
+      "description": "A stacked burger grilled to perfection—crafted by our high-flying kitchen team."
     },
     {
       "id": 3,
-      "name": "Cloud Cake",
+      "name": "Vanilla Cloud Cake",
       "category": "dessert",
       "price": 65,
       "image": "cake.png",
-      "description": "Fluffy sponge and whipped layers, delivered smoother than air traffic control."
+      "description": "Soft sponge layers and airy cream—fluffy enough to float."
     },
     {
       "id": 4,
       "name": "Chicken Wings",
-      "category": "starter",
+      "category": "main",
       "price": 69,
       "image": "chicken-wings.png",
-      "description": "Spicy, sticky, and drone-lifted—because good wings should fly."
+      "description": "Juicy wings with a bold, spicy glaze—served hot and ready."
     },
     {
       "id": 5,
-      "name": "Drone Brew",
+      "name": "Fresh Brewed Coffee",
       "category": "drink",
       "price": 29,
       "image": "coffee.png",
-      "description": "Freshly roasted coffee that parachutes into your hands warm."
+      "description": "Freshly roasted coffee, expertly brewed and delivered warm."
     },
     {
       "id": 6,
-      "name": "Buzz Cola",
+      "name": "Cola",
       "category": "drink",
       "price": 25,
       "image": "cola.png",
-      "description": "Ice-cold, carbonated, and dropped with precision fizz."
+      "description": "Ice-cold, fizzy cola—crafted for ultimate refreshment."
     },
     {
       "id": 7,
@@ -54,7 +54,7 @@
       "category": "starter",
       "price": 55,
       "image": "crispy-chicken.png",
-      "description": "Golden-crusted bites that hover in flavor and crunch."
+      "description": "Golden, crunchy chicken bites that bring the flavor with every bite."
     },
     {
       "id": 8,
@@ -62,23 +62,23 @@
       "category": "main",
       "price": 79,
       "image": "fish-chips.png",
-      "description": "Pub-style battered fish with thick-cut chips—flight approved."
+      "description": "Pub-style battered fish served with thick-cut fries—classic comfort."
     },
     {
       "id": 9,
-      "name": "Seaside Plate",
-      "category": "main",
+      "name": "Grilled Seafood Plate",
+      "category": "starter",
       "price": 89,
       "image": "fish-plate.png",
-      "description": "A classy selection of grilled seafood, sky-curated."
+      "description": "A curated selection of grilled seafood—fresh and flavorful."
     },
     {
       "id": 10,
-      "name": "Grilled Chicken",
+      "name": "Grilled Chicken Fillet",
       "category": "main",
       "price": 92,
       "image": "grilled-chicken.png",
-      "description": "Juicy, marinated fillets with altitude seasoning."
+      "description": "Tender, marinated fillets grilled to perfection—simple and satisfying."
     },
     {
       "id": 11,
@@ -86,31 +86,31 @@
       "category": "dessert",
       "price": 49,
       "image": "ice-cream-deluxe.png",
-      "description": "Triple scoop madness with no-melt drone priority."
+      "description": "A triple-scoop indulgence—delivered cold and creamy, no melt guaranteed."
     },
     {
       "id": 12,
-      "name": "Fruit Juice",
+      "name": "Fresh Fruit Juice",
       "category": "drink",
       "price": 22,
       "image": "juice.png",
-      "description": "Fresh-pressed and turbulence-proof."
+      "description": "Freshly pressed fruit juice—vibrant and refreshing."
     },
     {
       "id": 13,
-      "name": "Meat Skewers",
+      "name": "Grilled Meat Skewers",
       "category": "main",
       "price": 87,
       "image": "meat-skewer.png",
-      "description": "Charred, tender, and sky-kebabed to perfection."
+      "description": "Charred, tender meat skewers—bursting with smoky flavor."
     },
     {
       "id": 14,
-      "name": "Sky Pizza",
+      "name": "Thin Crust Pizza",
       "category": "main",
       "price": 95,
       "image": "pizza.png",
-      "description": "Thin crust, high velocity—delivered at cruising speed."
+      "description": "Crisp, thin-crust pizza with rich toppings—oven-baked for a perfect bite."
     },
     {
       "id": 15,
@@ -118,31 +118,31 @@
       "category": "main",
       "price": 78,
       "image": "ramen.png",
-      "description": "Rich broth and noodles, drone-lid sealed for slurp-safety."
+      "description": "Savory broth and noodles—packed and sealed to keep your slurp safe."
     },
     {
       "id": 16,
-      "name": "Altitude Sandwich",
+      "name": "Stacked Sandwich",
       "category": "main",
       "price": 72,
       "image": "sandwich.png",
-      "description": "Layered thick, cut clean, and flight-approved."
+      "description": "Layers of fresh ingredients, sliced clean and stacked just right."
     },
     {
       "id": 17,
-      "name": "Shrimp Wok",
+      "name": "Shrimp Stir Fry",
       "category": "main",
       "price": 88,
       "image": "shrimp-wok.png",
-      "description": "Quick-tossed shrimp, soy glaze, drone-dished."
+      "description": "Succulent shrimp, quickly tossed in a soy glaze—light and flavorful."
     },
     {
       "id": 18,
-      "name": "Steak Lift",
+      "name": "Grilled Sirloin Steak",
       "category": "main",
       "price": 109,
       "image": "steak.png",
-      "description": "Grilled sirloin packed with high-altitude flavor."
+      "description": "Premium sirloin steak, grilled with a perfect char—juicy and satisfying."
     },
     {
       "id": 19,
@@ -150,191 +150,102 @@
       "category": "starter",
       "price": 58,
       "image": "tasty-chicken-bites.png",
-      "description": "Fire-seasoned and served at top cruising heat."
+      "description": "Bite-sized pieces of chicken with a fiery kick—perfect for a quick snack."
     },
     {
       "id": 20,
-      "name": "Flight Tea",
+      "name": "Brewed Tea",
       "category": "drink",
       "price": 20,
       "image": "tea.png",
-      "description": "Brewed high, lands smooth."
+      "description": "A smooth, refreshing cup of tea—ideal for a mid-day pause."
     },
     {
       "id": 21,
-      "name": "Al Dente Veggies",
-      "category": "side",
+      "name": "Steamed Vegetables",
+      "category": "main",
       "price": 42,
       "image": "vegetables-al-dente.png",
-      "description": "Steamed and crisp, chopped for sky-freshness."
+      "description": "Steamed and crisp—bright and flavorful, every time."
     },
     {
       "id": 22,
-      "name": "Chroma Veg Mix",
-      "category": "side",
+      "name": "Roasted Veggie Medley",
+      "category": "starter",
       "price": 39,
       "image": "vegetables-chroma.png",
-      "description": "Colorful roasted veggie medley, flight prepped."
+      "description": "Colorful, roasted vegetables—fresh and perfectly seasoned."
     },
     {
       "id": 23,
-      "name": "Vietnamese Bowl",
+      "name": "Vietnamese Noodle Bowl",
       "category": "main",
       "price": 91,
       "image": "vietnamese.png",
-      "description": "Fresh herbs, rice noodles, and balance in every lift-off."
+      "description": "Fresh herbs and rice noodles in a balanced broth—an aromatic delight."
     }
   ],
   "orders": [
     {
-      "id": "af66",
-      "uuid": "af49ca6e-ee7e-48a1-a21e-17b93d449393",
-      "userId": "1c6f",
-      "fullName": "Kiri K",
-      "streetAddress": "Packhusgatan 17",
-      "apartment": "",
-      "city": "LIMHAMN",
-      "postalCode": "216 45",
-      "phone": "0731430121",
-      "deliveryNote": "",
-      "coupon": "",
-      "items": [
-        {
-          "id": 2,
-          "name": "Sky Burger",
-          "category": "main",
-          "price": 99,
-          "image": "burger.png",
-          "description": "A towering burger launched by our finest drone chefs, grilled at altitude.",
-          "quantity": 10
-        },
-        {
-          "id": "9",
-          "name": "Seaside Plate",
-          "category": "main",
-          "price": 89,
-          "image": "fish-plate.png",
-          "description": "A classy selection of grilled seafood, sky-curated.",
-          "quantity": 3
-        }
-      ],
-      "totalPrice": 1257,
-      "createdAt": "2025-05-29T20:42:39.928Z",
-      "paymentMethod": "card",
-      "paymentDetails": {
-        "cardNumber": "1231231231231232",
-        "expiryDate": "12/26",
-        "cvv": "123"
-      }
-    },
-    {
-      "id": "c332",
-      "uuid": "d7b60417-e409-4bac-8d2f-2dbfe9e48081",
-      "userId": "1c6f",
-      "fullName": "Kiri K",
-      "streetAddress": "Packhusgatan 17",
-      "apartment": "",
-      "city": "LIMHAMN",
-      "postalCode": "216 45",
-      "phone": "0731430121",
-      "deliveryNote": "",
-      "items": [],
-      "totalPrice": 0,
-      "createdAt": "2025-05-29T22:15:11.199Z",
-      "paymentMethod": "swish",
-      "paymentDetails": {
-        "swishPhone": "0731430121"
-      }
-    },
-    {
-      "id": "3c19",
-      "uuid": "629434ef-4b24-4682-96d8-58405b3a23b0",
-      "userId": "1c6f",
-      "fullName": "Kiri K",
-      "streetAddress": "Packhusgatan 17",
-      "apartment": "",
-      "city": "LIMHAMN",
-      "postalCode": "216 45",
-      "phone": "0731430121",
-      "deliveryNote": "",
-      "items": [],
-      "totalPrice": 0,
-      "createdAt": "2025-05-29T22:15:31.345Z",
-      "paymentMethod": "swish",
-      "paymentDetails": {
-        "swishPhone": "0731430121"
-      }
-    },
-    {
-      "id": "7d99",
-      "uuid": "d34749e8-c394-4164-a9a3-f6d8ef0c49f7",
-      "userId": "1c6f",
-      "fullName": "Kiri K",
-      "streetAddress": "Packhusgatan 17",
-      "apartment": "",
-      "city": "LIMHAMN",
-      "postalCode": "216 45",
-      "phone": "0731430121",
-      "deliveryNote": "",
-      "items": [],
-      "totalPrice": 0,
-      "createdAt": "2025-05-29T22:15:35.642Z",
-      "paymentMethod": "swish",
-      "paymentDetails": {
-        "swishPhone": "0731430121"
-      }
-    },
-    {
-      "id": "7ca2",
-      "uuid": "8d5739ff-fb06-4517-ba19-a6b6f4863a3a",
-      "userId": "1c6f",
-      "fullName": "Kiri K",
-      "streetAddress": "Packhusgatan 17",
-      "apartment": "",
-      "city": "LIMHAMN",
-      "postalCode": "216 45",
+      "id": "6868",
+      "uuid": "06dfb5e7-08c7-474c-82d5-8c7faf54ccd5",
+      "userId": 1,
+      "fullName": "Jane Drone",
+      "streetAddress": "Flightpath Street 42",
+      "apartment": "3B",
+      "city": "Stockholm",
+      "postalCode": "11223",
       "phone": "0731430121",
       "deliveryNote": "",
       "items": [
         {
-          "id": 19,
-          "name": "Spicy Chicken Bites",
+          "id": 22,
+          "name": "Roasted Veggie Medley",
           "category": "starter",
-          "price": 58,
-          "image": "tasty-chicken-bites.png",
-          "description": "Fire-seasoned and served at top cruising heat.",
+          "price": 39,
+          "image": "vegetables-chroma.png",
+          "description": "Colorful, roasted vegetables—fresh and perfectly seasoned.",
           "quantity": 1
         },
         {
-          "id": 14,
-          "name": "Sky Pizza",
+          "id": 18,
+          "name": "Grilled Sirloin Steak",
           "category": "main",
-          "price": 95,
-          "image": "pizza.png",
-          "description": "Thin crust, high velocity—delivered at cruising speed.",
+          "price": 109,
+          "image": "steak.png",
+          "description": "Premium sirloin steak, grilled with a perfect char—juicy and satisfying.",
           "quantity": 1
         },
         {
           "id": 6,
-          "name": "Buzz Cola",
+          "name": "Cola",
           "category": "drink",
           "price": 25,
           "image": "cola.png",
-          "description": "Ice-cold, carbonated, and dropped with precision fizz.",
-          "quantity": 3
+          "description": "Ice-cold, fizzy cola—crafted for ultimate refreshment.",
+          "quantity": 1
         },
         {
-          "id": 3,
-          "name": "Cloud Cake",
+          "id": 11,
+          "name": "Deluxe Ice Cream",
           "category": "dessert",
-          "price": 65,
-          "image": "cake.png",
-          "description": "Fluffy sponge and whipped layers, delivered smoother than air traffic control.",
+          "price": 49,
+          "image": "ice-cream-deluxe.png",
+          "description": "A triple-scoop indulgence—delivered cold and creamy, no melt guaranteed.",
           "quantity": 1
+        },
+        {
+          "id": 17,
+          "name": "Shrimp Stir Fry",
+          "category": "main",
+          "price": 88,
+          "image": "shrimp-wok.png",
+          "description": "Succulent shrimp, quickly tossed in a soy glaze—light and flavorful.",
+          "quantity": 3
         }
       ],
-      "totalPrice": 293,
-      "createdAt": "2025-05-29T23:11:02.381Z",
+      "totalPrice": 486,
+      "createdAt": "2025-06-02T09:17:25.768Z",
       "paymentMethod": "swish",
       "paymentDetails": {
         "swishPhone": "0731430121"
