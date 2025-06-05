@@ -34,17 +34,6 @@ Att bygga en så pass komplett applikation har varit utmanande men lärorikt. At
 
 Jag insåg också att i ett större projekt hade jag gärna använt TypeScript för bättre typkontroll och eventuellt Redux för global state management. Dessutom hade jag gärna lagt till loading states och spinner-komponenter för att förbättra användarupplevelsen ytterligare. Med mer tid hade jag också implementerat en riktig backend med JWT för säkrare autentisering.
 
-## Filstruktur (kortfattad)
-
-src/
- ├── components/ (Header, Footer)
- ├── pages/ (HomePage, MenuPage, CartPage, CheckoutPage, ConfirmationPage, auth/)
- ├── api/ (productService, userService)
- ├── utils/ (cartService, validationService)
- ├── styles/ (layout/*)
- ├── i18n.js
- └── main.jsx
-
 ## Slutsatser
 
 Projektet visar att jag kan ta ansvar för både frontend och backend i en modern webbapplikation. Jag har arbetat med användarflöden, design, databasstruktur, sessionshantering och validering och fått en djupare förståelse för hur man bygger en professionell produkt från start till mål. Applikationen är välstrukturerad, responsiv och utvecklad med fokus på både funktionalitet och användarvänlighet.
