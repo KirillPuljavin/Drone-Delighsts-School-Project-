@@ -1,6 +1,6 @@
 // File: src/App.jsx
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -14,9 +14,16 @@ import ProfilePage from "./pages/auth/ProfilePage";
 import { bootstrapLocalData } from "./utils/bootstrapLocalData";
 
 function App() {
+  const [dataReady, setDataReady] = useState(false);
+
   useEffect(() => {
     bootstrapLocalData();
+    setDataReady(true);
   }, []);
+
+  if (!dataReady) {
+    return null;
+  }
 
   return (
     <div className="react-wrapper">
