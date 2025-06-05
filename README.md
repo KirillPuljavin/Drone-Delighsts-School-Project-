@@ -1,6 +1,19 @@
+![Home Page](galleryPics/homepage.png)
+
 # Drone Delights – Food Delivery by Drone
 
 This project was developed as part of the "Gränssnittsutveckling" course at Newton Yrkeshögskola (VT25), but it also serves as a portfolio piece to showcase my skills as a developer. It is a fullstack application simulating a modern food delivery service via drones, where users can explore the menu, place orders, and manage their profiles. The focus has been on building a complete user experience with a solid technical foundation.
+
+## Getting Started
+
+To start the application locally:
+
+    npm install
+    npm run dev
+
+To start the JSON server for mock data:
+
+    npm run server
 
 ## Purpose and Objectives
 
@@ -41,11 +54,29 @@ This project demonstrates my ability to handle both frontend and backend develop
 
 I look forward to building on this project and using the experience gained in future projects.
 
+## Gallery
+
+![Menu Page](galleryPics/menu.png)
+![Cart](galleryPics/cart.png)
+![Checkout](galleryPics/checkout.png)
+![Confirmation](galleryPics/confirmation.png)
+
 ---
 
 # Drone Delights – Matleverans med drönare (Svenska)
 
 Det här projektet utvecklades som en del av kursen Gränssnittsutveckling (VT25) vid Newton Yrkeshögskola, men fungerar även som en portföljpjäs för att visa upp mina kunskaper som utvecklare. Applikationen är en fullstacklösning som simulerar en modern matleveranstjänst via drönare, där användare kan utforska menyn, lägga beställningar och hantera sin profil. Fokus har varit att bygga en komplett användarupplevelse med en stabil teknisk grund.
+
+## Kom igång
+
+För att starta applikationen lokalt:
+
+    npm install
+    npm run dev
+
+För att starta JSON-servern för mock-data:
+
+    npm run server
 
 ## Syfte och mål
 
