@@ -11,6 +11,7 @@ The purpose was to develop a user-friendly and responsive web application that e
 The application is built in React 18 using React Router for page navigation. A json-server backend was implemented to mock endpoints for products, users, and orders. I utilized SCSS for modular styling and i18next for multi-language support (Swedish and English). The application is fully component-based with clear separation of concerns, and all code is written in modern ES6 modules using functional components.
 
 Key technical choices:
+
 - React Hooks for state and effects
 - LocalStorage for cart, favorites, and session handling
 - UUID for unique order IDs
@@ -55,6 +56,7 @@ Syftet var att utveckla en användarvänlig och responsiv webbapplikation som tr
 Applikationen är byggd i React 18 med React Router för navigering mellan sidor. För backend används json-server som mock-backend för produkter, användare och ordrar. Jag har använt SCSS för modulär styling och i18next för stöd för flera språk (svenska och engelska). Applikationen är helt komponentbaserad med tydlig uppdelning av ansvar, och all kod är skriven i moderna ES6-moduler med funktionella komponenter.
 
 Exempel på tekniska val:
+
 - React Hooks för state och effekter
 - LocalStorage för varukorg, favoriter och sessionshantering
 - UUID för unika order-ID:n
