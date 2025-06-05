@@ -1,3 +1,5 @@
+// File: src/utils/bootstrapLocalData.js
+
 import { products } from "../../data/initialData.js";
 
 export function bootstrapLocalData() {

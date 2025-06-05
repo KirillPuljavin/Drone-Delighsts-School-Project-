@@ -1,9 +1,9 @@
 // File: src/App.jsx
 
+import { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-
 import HomePage from "./pages/HomePage";
 import MenuPage from "./pages/MenuPage";
 import CartPage from "./pages/CartPage";
@@ -11,8 +11,13 @@ import CheckoutPage from "./pages/CheckoutPage";
 import ConfirmationPage from "./pages/ConfirmationPage";
 import LoginPage from "./pages/auth/LoginPage";
 import ProfilePage from "./pages/auth/ProfilePage";
+import { bootstrapLocalData } from "./utils/bootstrapLocalData";
 
 function App() {
+  useEffect(() => {
+    bootstrapLocalData();
+  }, []);
+
   return (
     <div className="react-wrapper">
       <Router>

@@ -1,3 +1,4 @@
+// File: data/initialData.js
 export const products = [
   {
     id: 1,
