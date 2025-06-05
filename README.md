@@ -11,10 +11,10 @@ Syftet var att utveckla en användarvänlig och responsiv webbapplikation som ö
 Applikationen är byggd i React 18 med React Router för navigering mellan sidor. För backend används json-server som tillhandahåller mock-endpoints för produkter, användare och ordrar. Jag har använt SCSS för modulär styling och i18next för stöd för flera språk (svenska och engelska). Applikationen är helt komponentbaserad med tydlig uppdelning av ansvar, och all kod är skriven i moderna ES6-moduler med funktionella komponenter.
 
 Exempel på tekniska val:
-- React Hooks för state och effekter
-- LocalStorage för varukorg, favoriter och sessionshantering
-- UUID för unika order-ID:n
-- Figma för design och wireframes
+-React Hooks för state och effekter
+-LocalStorage för varukorg, favoriter och sessionshantering
+-UUID för unika order-ID:n
+-Figma för design och wireframes
 
 ## Funktionalitet och designval
 
