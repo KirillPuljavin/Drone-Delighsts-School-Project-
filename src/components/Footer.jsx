@@ -1,6 +1,13 @@
 // File: src/components/Footer.jsx
 
 import { useEffect, useState } from "react";
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaTwitter,
+  FaLinkedinIn,
+  FaYoutube,
+} from "react-icons/fa";
 
 const Footer = () => {
   const [darkMode, setDarkMode] = useState(
@@ -10,7 +17,6 @@ const Footer = () => {
   const toggleTheme = () => {
     const nextMode = !darkMode;
     const theme = nextMode ? "dark" : "light";
-
     document.documentElement.setAttribute("data-theme", theme);
     setDarkMode(nextMode);
     localStorage.setItem("theme", theme);
@@ -19,40 +25,95 @@ const Footer = () => {
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
     const defaultTheme = savedTheme === "dark" ? "dark" : "light";
-
     document.documentElement.setAttribute("data-theme", defaultTheme);
     setDarkMode(defaultTheme === "dark");
   }, []);
 
   return (
     <footer className="site-footer">
-      <div className="theme-toggle-wrap">
-        <button
-          onClick={toggleTheme}
-          className={`theme-toggle ${darkMode ? "dark" : "light"}`}
-          aria-label="Toggle theme"
-        >
-          <span className="emoji moon">🌙</span>
-          <span className="emoji sun">☀️</span>
-          <span className="thumb" />
-        </button>
+      <div className="footer-inner">
+        <div className="footer-left">
+          <h6>
+            &copy; {new Date().getFullYear()} Drone Delights. All rights
+            reserved.
+          </h6>
+          <p className="author">Author: Kirill P.</p>
+          <p className="disclaimer">* Demo footer. No links are functional.</p>
+
+          <div className="theme-toggle-wrap">
+            <button
+              onClick={toggleTheme}
+              className={`theme-toggle ${darkMode ? "dark" : "light"}`}
+              aria-label="Toggle theme"
+            >
+              <span className="emoji moon">🌙</span>
+              <span className="emoji sun">☀️</span>
+              <span className="thumb" />
+            </button>
+          </div>
+        </div>
+
+        <div className="footer-right">
+          <div className="social-icons">
+            <span className="icon">
+              <FaFacebookF />
+            </span>
+            <span className="icon">
+              <FaInstagram />
+            </span>
+            <span className="icon">
+              <FaTwitter />
+            </span>
+            <span className="icon">
+              <FaLinkedinIn />
+            </span>
+            <span className="icon">
+              <FaYoutube />
+            </span>
+          </div>
+        </div>
       </div>
-      <hr />
-      <h6>© 2025 Drone Delights</h6>
 
       <style jsx>{`
         .site-footer {
-          text-align: center;
-          padding: 1rem 1rem 3rem;
-          background-color: var(--color-surface);
+          background: var(--color-surface);
           color: var(--color-text);
+          padding: 2rem 1rem;
+          box-shadow: var(--shadow-inner);
+          border-top: 1px solid var(--color-border);
+        }
+
+        .footer-inner {
+          max-width: 1200px;
+          margin: 0 auto;
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+          flex-wrap: wrap;
+          gap: 1rem;
+        }
+
+        .footer-left h6 {
+          margin: 0;
+          font-size: 1rem;
+          font-weight: 600;
+        }
+
+        .footer-left .author {
+          margin-top: 0.25rem;
+          font-size: 0.9rem;
+          color: var(--color-text-muted);
+          font-style: italic;
+        }
+
+        .footer-left .disclaimer {
+          font-size: 0.8rem;
+          color: var(--color-text-muted);
+          margin-top: 0.25rem;
         }
 
         .theme-toggle-wrap {
           margin-top: 1rem;
-          display: flex;
-          justify-content: center;
-          align-items: center;
         }
 
         .theme-toggle {
@@ -94,6 +155,46 @@ const Footer = () => {
 
         .theme-toggle.light .thumb {
           transform: translateX(0px);
+        }
+
+        .footer-right {
+          display: flex;
+          align-items: center;
+        }
+
+        .social-icons {
+          display: flex;
+          gap: 0.75rem;
+        }
+
+        .social-icons .icon {
+          font-size: 1.25rem;
+          color: var(--color-primary);
+          cursor: pointer;
+          transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .social-icons .icon:hover {
+          transform: scale(1.2);
+          color: var(--color-primary-hover);
+        }
+
+        @media (max-width: 768px) {
+          .footer-inner {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+          }
+
+          .footer-right {
+            justify-content: center;
+          }
+
+          .theme-toggle-wrap {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+          }
         }
       `}</style>
     </footer>
