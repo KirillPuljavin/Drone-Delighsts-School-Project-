@@ -168,10 +168,15 @@ const Footer = () => {
         }
 
         .social-icons .icon {
-          font-size: 1.25rem;
+          width: 28px;
+          height: 28px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
           color: var(--color-primary);
           cursor: pointer;
           transition: transform 0.3s ease, color 0.3s ease;
+          font-size: 1.5rem;
         }
 
         .social-icons .icon:hover {
