@@ -1,8 +1,8 @@
-# Check it out here: [https://drone-delighsts-school-project.vercel.app/](https://drone-delighsts-school-project.vercel.app/)
+# Drone Delights – Food Delivery by Drone
+
+# Deployed here: [Fit Tracker PRO Live Demo](https://fit-tracker-school-project.vercel.app/)
 
 ![Home Page](galleryPics/homepage.png)
-
-# Drone Delights – Food Delivery by Drone
 
 This project was developed as part of the "Gränssnittsutveckling" course at Newton Yrkeshögskola (VT25), but it also serves as a portfolio piece to showcase my skills as a developer. It is a fullstack application simulating a modern food delivery service via drones, where users can explore the menu, place orders, and manage their profiles. The focus has been on building a complete user experience with a solid technical foundation.
 
