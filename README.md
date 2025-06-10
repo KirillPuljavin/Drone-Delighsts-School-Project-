@@ -1,6 +1,5 @@
 # Drone Delights – Food Delivery by Drone
-
-# Deployed here: [Fit Tracker PRO Live Demo](https://fit-tracker-school-project.vercel.app/)
+Deployed here: [Fit Tracker PRO Live Demo](https://fit-tracker-school-project.vercel.app/)
 
 ![Home Page](galleryPics/homepage.png)
 
