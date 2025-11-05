@@ -8,9 +8,17 @@ const SESSION_KEY = "userSession";
 
 const loadAllUsers = async () => {
   if (USE_LOCAL_DB) {
-    return JSON.parse(localStorage.getItem(LOCAL_USER_KEY) || "[]");
+    try {
+      return JSON.parse(localStorage.getItem(LOCAL_USER_KEY) || "[]");
+    } catch (error) {
+      console.error("Failed to parse users from localStorage:", error);
+      return [];
+    }
   }
   const res = await fetch(`${API_BASE}/users`);
+  if (!res.ok) {
+    throw new Error(`Failed to fetch users: ${res.status} ${res.statusText}`);
+  }
   return await res.json();
 };
 
@@ -32,6 +40,11 @@ export const getUserById = async (id) => {
   return users.find((u) => u.id === id) || null;
 };
 
+export const findUserByPhone = async (phone) => {
+  const users = await loadAllUsers();
+  return users.find((u) => u.phone === phone) || null;
+};
+
 export const registerUser = async (userData) => {
   const newUser = {
     ...userData,
@@ -50,6 +63,9 @@ export const registerUser = async (userData) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(newUser),
   });
+  if (!res.ok) {
+    throw new Error(`Failed to register user: ${res.status} ${res.statusText}`);
+  }
   return await res.json();
 };
 
@@ -70,6 +86,9 @@ export const updateUserById = async (id, patchData) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(patchData),
   });
+  if (!res.ok) {
+    throw new Error(`Failed to update user: ${res.status} ${res.statusText}`);
+  }
   return await res.json();
 };
 
@@ -84,6 +103,9 @@ export const deleteUserById = async (id) => {
   const res = await fetch(`${API_BASE}/users/${id}`, {
     method: "DELETE",
   });
+  if (!res.ok) {
+    throw new Error(`Failed to delete user: ${res.status} ${res.statusText}`);
+  }
   return await res.json();
 };
 

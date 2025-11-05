@@ -8,6 +8,7 @@ import {
   registerUser,
   findUserByCredentials,
   cacheUserSession,
+  findUserByPhone,
 } from "../../api/userService";
 import {
   validatePhoneNumber,
@@ -101,6 +102,12 @@ const LoginPage = () => {
           navigate(redirectTo);
         }
       } else {
+        // Check if phone number already exists
+        const existingUser = await findUserByPhone(formData.phone);
+        if (existingUser) {
+          setFeedback(t("auth.phoneAlreadyExists"));
+          return;
+        }
         const newUser = await registerUser(formData);
         cacheUserSession(newUser);
         navigate(redirectTo);
