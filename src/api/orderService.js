@@ -8,9 +8,17 @@ import { v4 as uuidv4 } from "uuid";
 
 const loadAllOrders = async () => {
   if (USE_LOCAL_DB) {
-    return JSON.parse(localStorage.getItem(LOCAL_ORDER_KEY) || "[]");
+    try {
+      return JSON.parse(localStorage.getItem(LOCAL_ORDER_KEY) || "[]");
+    } catch (error) {
+      console.error("Failed to parse orders from localStorage:", error);
+      return [];
+    }
   }
   const res = await fetch(`${API_BASE}/orders`);
+  if (!res.ok) {
+    throw new Error(`Failed to fetch orders: ${res.status} ${res.statusText}`);
+  }
   return await res.json();
 };
 
@@ -49,6 +57,9 @@ export const createOrder = async (order) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(newOrder),
   });
+  if (!res.ok) {
+    throw new Error(`Failed to create order: ${res.status} ${res.statusText}`);
+  }
   return await res.json();
 };
 
@@ -63,5 +74,8 @@ export const deleteOrderById = async (id) => {
   const res = await fetch(`${API_BASE}/orders/${id}`, {
     method: "DELETE",
   });
+  if (!res.ok) {
+    throw new Error(`Failed to delete order: ${res.status} ${res.statusText}`);
+  }
   return await res.json();
 };

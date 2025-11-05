@@ -37,7 +37,7 @@ export const validatePhoneNumber = (
   if (allowMockUser && cleaned === "user") return null;
 
   const isIntl = /^\+\d{6,15}$/.test(cleaned);
-  const isLocal = /^07\d{1}\d{7}$/.test(cleaned);
+  const isLocal = /^07\d{8}$/.test(cleaned);
 
   if (!isIntl && !isLocal) {
     return t("validation.phoneFormat");
@@ -71,7 +71,13 @@ export const validateExpiryDate = (value, t) => {
     return t("validation.expiryFormat");
   }
 
-  const expDate = new Date(`20${year}`, parseInt(month), 0);
+  const monthNum = parseInt(month);
+  if (monthNum < 1 || monthNum > 12) {
+    return t("validation.expiryFormat");
+  }
+
+  // Get last day of expiry month (day 0 of next month)
+  const expDate = new Date(`20${year}`, monthNum, 0);
   const now = new Date();
   if (expDate <= now) {
     return t("validation.cardExpired");
@@ -88,7 +94,7 @@ export const validateCVV = (value, t) => {
 export const validateSwishPhone = (value, t) => {
   const cleaned = value.trim().replace(/\s|-/g, "");
   const isValid =
-    /^\+\d{6,15}$/.test(cleaned) || /^07\d{1}\d{7}$/.test(cleaned);
+    /^\+\d{6,15}$/.test(cleaned) || /^07\d{8}$/.test(cleaned);
 
   if (!isValid) {
     return t("validation.swishPhoneFormat");
