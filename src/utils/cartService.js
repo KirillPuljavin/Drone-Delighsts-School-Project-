@@ -3,8 +3,13 @@
 const STORAGE_KEY = "drone-cart";
 
 export const getCart = () => {
-  const cart = localStorage.getItem(STORAGE_KEY);
-  return cart ? JSON.parse(cart) : [];
+  try {
+    const cart = localStorage.getItem(STORAGE_KEY);
+    return cart ? JSON.parse(cart) : [];
+  } catch (error) {
+    console.error("Failed to parse cart from localStorage:", error);
+    return [];
+  }
 };
 
 export const saveCart = (cart) => {

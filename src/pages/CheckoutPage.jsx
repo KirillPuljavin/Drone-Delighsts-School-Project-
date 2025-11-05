@@ -11,7 +11,6 @@ import {
   clearUserSession,
 } from "../api/userService";
 import { createOrder } from "../api/orderService";
-import { v4 as uuidv4 } from "uuid";
 import {
   validateFullName,
   validateStreetAddress,
@@ -48,7 +47,7 @@ const CheckoutPage = () => {
 
   useEffect(() => {
     const session = loadUserSession();
-    if (session?.id == null) {
+    if (session?.id === null || session?.id === undefined) {
       navigate("/login", { state: { from: "/checkout" } });
       return;
     }
@@ -126,8 +125,6 @@ const CheckoutPage = () => {
     }
 
     const order = {
-      id: undefined,
-      uuid: uuidv4(),
       userId: user.id,
       fullName: formData.fullName,
       streetAddress: formData.streetAddress,
