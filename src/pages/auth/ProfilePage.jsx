@@ -130,11 +130,9 @@ const ProfilePage = () => {
   const handleSaveProfile = () => {
     if (!validateProfileForm()) return;
 
-    const updatedUser = { ...user, ...formData };
-
-    updateUserById(updatedUser).then((res) => {
+    updateUserById(user.id, formData).then((res) => {
       if (res) {
-        setUser(updatedUser);
+        setUser(res);
         alert(t("profile.profileUpdated"));
         setErrors({});
       } else {
