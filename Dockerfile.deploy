@@ -4,8 +4,7 @@ WORKDIR /app
 COPY . .
 RUN npm ci
 # Gate: a known-vulnerable tree must not become an image.
-# TODO tighten to --audit-level=high once the 4 open highs are triaged.
-RUN npm audit --omit=dev --audit-level=critical
+RUN npm audit --omit=dev --audit-level=high
 # same-origin API path; Caddy proxies /api -> json-server
 ENV VITE_API_URL=/api
 ENV VITE_USE_LOCAL=false
