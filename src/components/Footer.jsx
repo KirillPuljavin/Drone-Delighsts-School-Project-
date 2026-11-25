@@ -37,7 +37,7 @@ const Footer = () => {
             &copy; {new Date().getFullYear()} Drone Delights. All rights
             reserved.
           </h6>
-          <p className="author">Author: Kirill P.</p>
+          <p className="author">Author: Konrad Dahl</p>
           <p className="disclaimer">* Demo footer. No links are functional.</p>
 
           <div className="theme-toggle-wrap">
